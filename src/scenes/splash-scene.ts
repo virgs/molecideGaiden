@@ -17,10 +17,11 @@ export class SplashScene extends Phaser.Scene {
         this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, this.splash);
         this.loadImages();
         this.loadSounds();
+        this.loadSprites();
         this.load.start();
 
         // window.setTimeout(() => {
-            this.load.on('complete', () => this.scene.start("MainScene"));
+        this.load.on('complete', () => this.scene.start("MainScene"));
         // }, SplashScene.MIN_TIME);
     }
 
@@ -28,13 +29,7 @@ export class SplashScene extends Phaser.Scene {
         const imagesToLoad = [
             "background-castle",
             "board",
-            "characters",
-            "falling-root",
-            "helicopter-killer",
             "life-tube",
-            "life",
-            "root",
-            "stars"
         ];
 
         imagesToLoad.forEach(image => this.load.image(image, `./assets/images/${image}.png`));
@@ -44,5 +39,32 @@ export class SplashScene extends Phaser.Scene {
         const soundsToLoad = [];
 
         soundsToLoad.forEach(sound => this.load.audio(sound, `./assets/sounds/${sound}.png`));
+    }
+
+    private loadSprites() {
+        const spritesToLoad = [
+            {
+                name: "mole",
+                file: "characters",
+                frameWidth: 90,
+                frameHeight: 90,
+                // startFrame: 1,
+                // endFrame: 7,
+            },
+            // "falling-root",
+            // "helicopter-killer",
+            // "life",
+            // "root",
+            // "stars"
+        ];
+
+        spritesToLoad.forEach(spriteSheet =>
+            this.load.spritesheet(spriteSheet.name, `./assets/images/${spriteSheet.file}.png`, {
+                frameWidth: 90,
+                frameHeight: 90,
+                // startFrame: 0,
+                // endFrame: 7,
+            }));
+
     }
 }
