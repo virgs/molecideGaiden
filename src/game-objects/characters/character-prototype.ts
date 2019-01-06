@@ -2,15 +2,25 @@ import {Character} from "./character";
 import {Hole} from "../hole";
 import {EventManager, Events} from "../../event-manager/event-manager";
 
-export class Mole implements Character {
+export type CharacterPrototypeConfig = {
+    name: string;
+    events: {
+        miss: Events,
+        hit: Events
+    }
+}
+
+export class CharacterPrototype implements Character {
     private duration: number;
     private sprite: Phaser.GameObjects.Sprite;
     private map: any;
     private scene: Phaser.Scene;
     private hole: Hole;
     private alive = false;
+    private characterConfig: CharacterPrototypeConfig;
 
-    constructor(duration: number) {
+    constructor(characterConfig: CharacterPrototypeConfig, duration: number) {
+        this.characterConfig = characterConfig;
         this.duration = duration;
     }
 
@@ -23,9 +33,9 @@ export class Mole implements Character {
         this.duration -= delta;
         if (this.alive && this.duration <= 0) {
             this.alive = false;
-            this.sprite.anims.play('mole-miss')
+            this.sprite.anims.play(`${this.characterConfig.name}-miss`)
                 .once('animationcomplete', () => {
-                    EventManager.emit(Events.MOLE_MISS);
+                    EventManager.emit(this.characterConfig.events.miss);
                     this.hole.setAvailable();
                     this.sprite.destroy();
                 });
@@ -40,18 +50,18 @@ export class Mole implements Character {
         this.sprite.on('pointerdown', () => this.gotHit());
 
         Object.keys(this.map.animations).forEach((animation: string) => this.sprite.anims.load('mole-' + animation));
-        this.sprite.anims.play('mole-raise')
+        this.sprite.anims.play(`${this.characterConfig.name}-raise`)
             .once('animationcomplete', () => {
-                this.sprite.anims.play('mole-alive');
+                this.sprite.anims.play(`${this.characterConfig.name}-alive`);
             })
     }
 
     private gotHit() {
         if (this.alive) {
             this.alive = false;
-            this.sprite.anims.play('mole-hit')
+            this.sprite.anims.play(`${this.characterConfig.name}-hit`)
                 .once('animationcomplete', () => {
-                    EventManager.emit(Events.MOLE_HIT);
+                    EventManager.emit(this.characterConfig.events.hit);
                     this.hole.setAvailable();
                     this.sprite.destroy();
                 });
@@ -59,3 +69,4 @@ export class Mole implements Character {
 
     }
 }
+
