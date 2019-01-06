@@ -26,10 +26,21 @@ export class CharacterCreator {
             this.nextCreationTime = 2*1000;
             // this.nextCreationTime = Math.log(this.totalTime * 100 + 1000) -
             //                     Math.sin((this.totalTime - CharacterCreator.CYCLE_WIDTH) * Math.PI / CharacterCreator.CYCLE_WIDTH) * CharacterCreator.SIN_HEIGHT;
-            EventManager.emit(Events.CREATE_CHARACTER, CharacterFactory.createMole(2*1000));
-            EventManager.emit(Events.CREATE_CHARACTER, CharacterFactory.createRabbit(2*1000));
-            EventManager.emit(Events.CREATE_CHARACTER, CharacterFactory.createStar(2*1000));
+            EventManager.emit(Events.CREATE_CHARACTER, this.randomizeCharacter(2*1000));
         }
 
+    }
+
+    private static probability(probability: number) {
+        return !!probability && Math.random() <= probability;
+    };
+
+    private randomizeCharacter(duration: number) {
+        if (CharacterCreator.probability(0.075)) {
+            return CharacterFactory.createStar(duration);
+        } else if (CharacterCreator.probability(0.20)) {
+            return CharacterFactory.createRabbit(duration);
+        }
+        return CharacterFactory.createMole(duration);
     }
 }
