@@ -23,7 +23,6 @@ export class MainScene extends Phaser.Scene {
 
     preload(): void {
         this.loadCharacters();
-        this.loadLife();
     }
 
     create(): void {
@@ -59,18 +58,5 @@ export class MainScene extends Phaser.Scene {
                 frameCounter += 8;
             });
         });
-    }
-
-    private loadLife() {
-        this.anims.create({
-            key: 'life',
-            frames: this.anims.generateFrameNumbers('life', {
-                start: 0,
-                end: 3
-            }),
-            repeat: -1,
-            frameRate: 12
-        });
-
     }
 }
