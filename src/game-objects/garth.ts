@@ -21,11 +21,8 @@ export class Garth implements GameObject {
         this.sprite.setInteractive();
         this.sprite.on('pointerdown', (event) => this.holes.forEach(hole => hole.checkEmptyHit(event.position)));
 
-        const width = this.sprite.getBottomRight().x - this.sprite.getTopLeft().x;
-        const height = this.sprite.getBottomRight().y - this.sprite.getTopLeft().y;
-        const garthDimension = new Phaser.Math.Vector2(width, height);
-        const holeDimension = new Phaser.Math.Vector2(width / this.holesPerColumn, height / this.holesPerLine);
-        this.sprite.setY(scene.game.renderer.height - garthDimension.y / 2);
+        const holeDimension = new Phaser.Math.Vector2(this.sprite.getBounds().width / this.holesPerColumn, this.sprite.getBounds().height / this.holesPerLine);
+        this.sprite.setY(scene.game.renderer.height - this.sprite.getBounds().y / 2 - 50);
 
         this.createHoles(holeDimension, scene);
         this.registerEvents(scene);

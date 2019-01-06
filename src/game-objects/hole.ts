@@ -40,7 +40,6 @@ export class Hole implements GameObject{
 
     checkEmptyHit(position: Phaser.Math.Vector2) {
         if (this.sensor.contains(position.x, position.y)) {
-            console.log('HOLE_EMPTY_HIT');
             EventManager.emit(Events.HOLE_EMPTY_HIT);
         }
     }

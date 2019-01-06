@@ -1,11 +1,13 @@
 export class SplashScene extends Phaser.Scene {
 
     private static readonly MIN_TIME: 2000;
+    private loadCompleted: boolean;
 
     constructor() {
         super({
             key: "SplashScene"
         });
+        this.loadCompleted = false;
     }
 
     public preload(): void {
@@ -19,10 +21,18 @@ export class SplashScene extends Phaser.Scene {
         this.loadSounds();
         this.loadSprites();
         this.load.start();
+        this.load.on('complete', () => this.loadCompleted = true);
 
-        // window.setTimeout(() => {
-        this.load.on('complete', () => this.scene.start("MainScene"));
-        // }, SplashScene.MIN_TIME);
+        // this.time.addEvent({
+        //     delay: 2000, callback: () => { //TODO wait untill animation is complete
+        //         if (this.loadCompleted) {
+        //             this.scene.start("MainScene")
+        //         } else {
+                    this.load.on('complete', () => this.scene.start("MainScene"))
+                // }
+            // }, callbackScope: this
+        // });
+
     }
 
     private loadImages() {
@@ -44,6 +54,8 @@ export class SplashScene extends Phaser.Scene {
     private loadSprites() {
         const map = this.cache.json.get('characters');
         this.load.spritesheet(map.key, map.filename, map.dimensions);
+        // 505x41
+        this.load.spritesheet('life', './assets/images/life.png', {frameWidth: 1010, frameHeight: 41, startFrame: 0, endFrame: 3});
 
     }
 }

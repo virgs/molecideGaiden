@@ -17,6 +17,7 @@ export class CharacterPrototype implements Character {
     private scene: Phaser.Scene;
     private hole: Hole;
     private alive = false;
+    private startMissing = false;
     private characterConfig: CharacterPrototypeConfig;
 
     constructor(characterConfig: CharacterPrototypeConfig, duration: number) {
@@ -31,13 +32,16 @@ export class CharacterPrototype implements Character {
 
     update(delta: number): void {
         this.duration -= delta;
-        if (this.alive && this.duration <= 0) {
-            this.alive = false;
-            EventManager.emit(this.characterConfig.events.miss);
+        if (this.alive && this.duration <= 0 && !this.startMissing) {
+            this.startMissing = true;
             this.sprite.anims.play(`${this.characterConfig.name}-miss`)
                 .once('animationcomplete', () => {
-                    this.hole.setAvailable();
-                    this.sprite.destroy();
+                    if (this.alive) {
+                        EventManager.emit(this.characterConfig.events.miss);
+                        this.alive = false;
+                        this.hole.setAvailable();
+                        this.sprite.destroy();
+                    }
                 });
         }
     }

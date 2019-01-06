@@ -1,4 +1,5 @@
 export enum Events {
+    SCORE_UPDATE,
     RABBIT_MISS,
     RABBIT_HIT,
     STAR_MISS,
