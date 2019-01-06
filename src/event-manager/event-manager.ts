@@ -1,8 +1,8 @@
 export enum Events {
     RABBIT_MISS,
     RABBIT_HIT,
-    START_MISS,
-    START_HIT,
+    STAR_MISS,
+    STAR_HIT,
     HOLE_EMPTY_HIT,
     MOLE_HIT,
     CREATE_CHARACTER,

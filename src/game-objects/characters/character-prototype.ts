@@ -33,9 +33,9 @@ export class CharacterPrototype implements Character {
         this.duration -= delta;
         if (this.alive && this.duration <= 0) {
             this.alive = false;
+            EventManager.emit(this.characterConfig.events.miss);
             this.sprite.anims.play(`${this.characterConfig.name}-miss`)
                 .once('animationcomplete', () => {
-                    EventManager.emit(this.characterConfig.events.miss);
                     this.hole.setAvailable();
                     this.sprite.destroy();
                 });
@@ -59,9 +59,9 @@ export class CharacterPrototype implements Character {
     private gotHit() {
         if (this.alive) {
             this.alive = false;
+            EventManager.emit(this.characterConfig.events.hit);
             this.sprite.anims.play(`${this.characterConfig.name}-hit`)
                 .once('animationcomplete', () => {
-                    EventManager.emit(this.characterConfig.events.hit);
                     this.hole.setAvailable();
                     this.sprite.destroy();
                 });

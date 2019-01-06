@@ -1,7 +1,9 @@
 import {Garth} from "../game-objects/garth";
 import {CharacterCreator} from "../game-objects/characters/character-creator";
+import {ScoreController} from "../score/score-controller";
 
 export class MainScene extends Phaser.Scene {
+    private scoreController: ScoreController;
     private background: Phaser.GameObjects.Sprite;
     private garth: Garth;
     private characterCreator: CharacterCreator;
@@ -12,6 +14,7 @@ export class MainScene extends Phaser.Scene {
         });
 
         this.garth = new Garth();
+        this.scoreController = new ScoreController();
         this.characterCreator = new CharacterCreator();
     }
 

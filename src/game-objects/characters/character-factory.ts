@@ -12,6 +12,6 @@ export class CharacterFactory {
     }
 
     public static createStar(duration: number) {
-        return new CharacterPrototype({name: 'star', events: {hit: Events.START_HIT, miss: Events.START_MISS}}, duration);
+        return new CharacterPrototype({name: 'star', events: {hit: Events.STAR_HIT, miss: Events.STAR_MISS}}, duration);
     }
 }
