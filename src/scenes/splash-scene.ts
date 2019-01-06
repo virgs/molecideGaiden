@@ -42,10 +42,8 @@ export class SplashScene extends Phaser.Scene {
     }
 
     private loadSprites() {
-        this.load.spritesheet('mole', `./assets/images/characters.png`, {
-            frameWidth: 90,
-            frameHeight: 90,
-        });
+        const map = this.cache.json.get('characters');
+        this.load.spritesheet(map.key, map.filename, map.dimensions);
 
     }
 }

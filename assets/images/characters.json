@@ -1,4 +1,5 @@
 {
+  "key": "characters",
   "objects": [
     "mole",
     "star",
@@ -11,6 +12,9 @@
     "raise"
   ],
   "framesPerAnimation": 8,
-  "width": 90,
-  "height": 90
+  "filename": "./assets/images/characters.png",
+  "dimensions": {
+    "frameWidth": 90,
+    "frameHeight": 90
+  }
 }
