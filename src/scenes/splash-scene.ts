@@ -1,7 +1,6 @@
 export class SplashScene extends Phaser.Scene {
 
     private static readonly MIN_TIME: 2000;
-    private readonly splash = "splash";
 
     constructor() {
         super({
@@ -10,11 +9,12 @@ export class SplashScene extends Phaser.Scene {
     }
 
     public preload(): void {
-        this.load.image(this.splash, "./assets/images/gui.png");
+        this.load.image("splash", "./assets/images/gui.png");
+        this.load.json('characters', './assets/images/characters.json');
     }
 
     public create(): void {
-        this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, this.splash);
+        this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "splash");
         this.loadImages();
         this.loadSounds();
         this.loadSprites();
@@ -28,7 +28,7 @@ export class SplashScene extends Phaser.Scene {
     private loadImages() {
         const imagesToLoad = [
             "background-castle",
-            "board",
+            "garth",
             "life-tube",
         ];
 
@@ -42,29 +42,10 @@ export class SplashScene extends Phaser.Scene {
     }
 
     private loadSprites() {
-        const spritesToLoad = [
-            {
-                name: "mole",
-                file: "characters",
-                frameWidth: 90,
-                frameHeight: 90,
-                // startFrame: 1,
-                // endFrame: 7,
-            },
-            // "falling-root",
-            // "helicopter-killer",
-            // "life",
-            // "root",
-            // "stars"
-        ];
-
-        spritesToLoad.forEach(spriteSheet =>
-            this.load.spritesheet(spriteSheet.name, `./assets/images/${spriteSheet.file}.png`, {
-                frameWidth: 90,
-                frameHeight: 90,
-                // startFrame: 0,
-                // endFrame: 7,
-            }));
+        this.load.spritesheet('mole', `./assets/images/characters.png`, {
+            frameWidth: 90,
+            frameHeight: 90,
+        });
 
     }
 }

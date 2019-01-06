@@ -1,4 +1,4 @@
-export class Board {
+export class Garth {
     private sprite;
 
     constructor() {

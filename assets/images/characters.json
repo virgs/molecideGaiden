@@ -1,0 +1,16 @@
+{
+  "objects": [
+    "mole",
+    "star",
+    "rabbit"
+  ],
+  "animations": [
+    "alive",
+    "hit",
+    "miss",
+    "raise"
+  ],
+  "framesPerAnimation": 8,
+  "width": 90,
+  "height": 90
+}

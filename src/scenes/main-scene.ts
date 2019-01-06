@@ -1,9 +1,9 @@
-import {Board} from "../game-objects/board";
+import {Garth} from "../game-objects/garth";
 
 export class MainScene extends Phaser.Scene {
-    private board: Board;
+    private garth: Garth;
     private sprite: any;
-    private anim: any;
+
     // private phaserSprite: Phaser.GameObjects.Sprite;
 
     constructor() {
@@ -11,7 +11,36 @@ export class MainScene extends Phaser.Scene {
             key: "MainScene"
         });
 
-        this.board = new Board();
+        this.garth = new Garth();
+    }
+
+    preload(): void {
+        this.loadCharacters();
+    }
+
+    loadCharacters(): void {
+        let frameCounter = 0;
+        const map = this.cache.json.get('characters');
+        map.animations.forEach((animation, animationIndex) => {
+            map.objects.forEach((character, characterIndex) => {
+                const key = character + '-' + animation;
+                console.log(key + ' -> ' + JSON.stringify({
+                    start: frameCounter,
+                    end: frameCounter + 8
+                }));
+                this.anims.create({
+                    key: key,
+                    frames: this.anims.generateFrameNumbers('mole', {
+                        start: frameCounter,
+                        end: frameCounter + 7
+                    }),
+                    repeat: 0,//-1,
+                    frameRate: 12
+                });
+                frameCounter += 8;
+            });
+        });
+
     }
 
     create(): void {
@@ -19,29 +48,18 @@ export class MainScene extends Phaser.Scene {
 
         this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle");
 
-
-
-        const animation = {
-            key: 'swinging',
-            frames: this.anims.generateFrameNumbers('mole', {
-                start: 0,
-                end: 7
-            }),
-            repeat: -1,
-            frameRate: 12
-        };
-
-
-        this.anim = this.anims.create(animation);
-        this.sprite = this.add.sprite(400, 300, 'mole');
-
-        this.sprite.anims.load('swinging');
-
-        this.sprite.anims.play('swinging');
-
+        const sprite = this.add.sprite(500, 300, 'mole');
+        sprite.anims.load('star-raise');
+        sprite.anims.load('star-miss');
+        // sprite.anims.setRepeat(1);
+        const loop = () => sprite.anims.play('star-raise')
+            .once('animationcomplete', () =>
+                sprite.anims.play('star-miss')
+                    .once('animationcomplete', loop));
+        loop();
     }
 
-    update(): void {
+    update(time: number, delta: number): void {
 
     }
 }
