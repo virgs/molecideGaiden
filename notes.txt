@@ -6,3 +6,4 @@ Mole generation function:
 
 
 https://photonstorm.github.io/phaser3-docs/
+Useful thing: https://onlinepngtools.com/create-transparent-png
