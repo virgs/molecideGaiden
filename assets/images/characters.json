@@ -5,12 +5,12 @@
     "star",
     "rabbit"
   ],
-  "animations": [
-    "alive",
-    "hit",
-    "miss",
-    "raise"
-  ],
+  "animations": {
+    "alive": true,
+    "hit": false,
+    "miss": false,
+    "raise": false
+  },
   "framesPerAnimation": 8,
   "filename": "./assets/images/characters.png",
   "dimensions": {

@@ -1,5 +1,5 @@
 import {Garth} from "../game-objects/garth";
-import {CharacterCreator} from "./character-creator";
+import {CharacterCreator} from "../game-objects/characters/character-creator";
 
 export class MainScene extends Phaser.Scene {
     private background: Phaser.GameObjects.Sprite;
@@ -22,15 +22,15 @@ export class MainScene extends Phaser.Scene {
     loadCharacters(): void {
         let frameCounter = 0;
         const map = this.cache.json.get('characters');
-        map.animations.forEach((animation) => {
+        Object.keys(map.animations).forEach((animationKey) => {
             map.objects.forEach((character) => {
                 this.anims.create({
-                    key: character + '-' + animation,
+                    key: character + '-' + animationKey,
                     frames: this.anims.generateFrameNumbers(map.key, {
                         start: frameCounter,
                         end: frameCounter + 7
                     }),
-                    repeat: 0,
+                    repeat: map.animations[animationKey] ? -1: 0,
                     frameRate: 12
                 });
                 frameCounter += 8;
@@ -42,15 +42,10 @@ export class MainScene extends Phaser.Scene {
     create(): void {
         this.background = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle");
         this.garth.create(this);
-
-        // const loop = () => sprite.anims.play('star-raise')
-        //     .once('animationcomplete', () =>
-        //         sprite.anims.play('star-miss')
-        //             .once('animationcomplete', loop));
-        // loop();
     }
 
     update(time: number, delta: number): void {
         this.characterCreator.update(delta);
+        this.garth.update(delta);
     }
 }

@@ -1,15 +1,18 @@
 import {GameObject} from "./game-object";
 import {Hole} from "./hole";
-import {EventManager} from "../event-manager/event-manager";
+import {EventManager, Events} from "../event-manager/event-manager";
+import {Character} from "./characters/character";
 
 export class Garth implements GameObject {
     private readonly holesPerLine = 4;
     private readonly holesPerColumn = 3;
 
     private sprite: Phaser.GameObjects.Sprite;
+    private availableHoles: Hole[];
     private holes: Hole[];
 
     constructor() {
+        this.availableHoles = [];
         this.holes = [];
     }
 
@@ -29,16 +32,26 @@ export class Garth implements GameObject {
                         this.sprite.getTopLeft().y + holeDimension.y * (line + 0.5) - 30 + line * 10);
                     const hole = new Hole(holeCenter, holeDimension);
                     hole.create(scene);
+                    this.availableHoles.push(hole);
                     this.holes.push(hole);
                 }));
 
-        EventManager.getEmitter().on(EventManager.CREATE_CHARACTER, () => {
-            this.holes[Math.floor((Math.random() * this.holes.length))].insertCharacter(scene);
+
+
+        EventManager.on(Events.CREATE_CHARACTER, (character: Character) => {
+            if (this.availableHoles.length > 0) {
+                character.create(scene);
+                const randomIndex = Math.floor((Math.random() * this.availableHoles.length));
+                this.availableHoles[randomIndex].insertCharacter(character);
+                this.availableHoles.splice(randomIndex, 1)
+            }
         });
+
+        EventManager.on(Events.HOLE_AVAILABLE, (hole: Hole) => this.availableHoles.push(hole));
     }
 
     update(delta: number): void {
-
+        this.holes.forEach(hole => hole.update(delta));
     }
 
 }

@@ -1,7 +1,10 @@
 import {GameObject} from "./game-object";
+import {Character} from "./characters/character";
+import {EventManager, Events} from "../event-manager/event-manager";
 
 export class Hole implements GameObject{
     private readonly holeCenter: Phaser.Math.Vector2;
+    private character: Character;
 
     constructor(holeCenter: Phaser.Math.Vector2, holeDimension: Phaser.Math.Vector2) {
         this.holeCenter = holeCenter;
@@ -11,18 +14,22 @@ export class Hole implements GameObject{
     }
 
     update(delta: number): void {
+        if (this.character) {
+            this.character.update(delta);
+        }
     }
 
-    insertCharacter(scene: Phaser.Scene) {
-        const map = scene.cache.json.get('characters');
-        const sprite = scene.add.sprite(this.holeCenter.x, this.holeCenter.y, map.key);
+    insertCharacter(character: Character) {
+        this.character = character;
+        character.attachToHole(this);
+    }
 
-        const animationName = map.objects[Math.floor((Math.random() * map.objects.length))] +
-            '-' +
-            map.animations[Math.floor((Math.random() * map.animations.length))];
+    getCenter() {
+        return this.holeCenter;
+    }
 
-        sprite.anims.load(animationName);
-        sprite.anims.setRepeat(-1);
-        sprite.anims.play(animationName);
+    setAvailable() {
+        this.character = null;
+        EventManager.emit(Events.HOLE_AVAILABLE, this);
     }
 }
