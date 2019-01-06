@@ -1,4 +1,4 @@
-import {GameObject} from "./gameObject";
+import {GameObject} from "./game-object";
 
 export class Hole implements GameObject{
     private readonly holeCenter: Phaser.Math.Vector2;
@@ -8,6 +8,12 @@ export class Hole implements GameObject{
     }
 
     create(scene: Phaser.Scene): void {
+    }
+
+    update(delta: number): void {
+    }
+
+    insertCharacter(scene: Phaser.Scene) {
         const map = scene.cache.json.get('characters');
         const sprite = scene.add.sprite(this.holeCenter.x, this.holeCenter.y, map.key);
 
@@ -18,8 +24,5 @@ export class Hole implements GameObject{
         sprite.anims.load(animationName);
         sprite.anims.setRepeat(-1);
         sprite.anims.play(animationName);
-    }
-
-    update(delta: number): void {
     }
 }

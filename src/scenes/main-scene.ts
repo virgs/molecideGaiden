@@ -1,8 +1,10 @@
 import {Garth} from "../game-objects/garth";
+import {CharacterCreator} from "./character-creator";
 
 export class MainScene extends Phaser.Scene {
     private background: Phaser.GameObjects.Sprite;
     private garth: Garth;
+    private characterCreator: CharacterCreator;
 
     constructor() {
         super({
@@ -10,6 +12,7 @@ export class MainScene extends Phaser.Scene {
         });
 
         this.garth = new Garth();
+        this.characterCreator = new CharacterCreator();
     }
 
     preload(): void {
@@ -48,6 +51,6 @@ export class MainScene extends Phaser.Scene {
     }
 
     update(time: number, delta: number): void {
-
+        this.characterCreator.update(delta);
     }
 }
