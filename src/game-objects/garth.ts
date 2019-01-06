@@ -18,6 +18,8 @@ export class Garth implements GameObject {
 
     create(scene: Phaser.Scene): void {
         this.sprite = scene.add.sprite(scene.game.renderer.width / 2, scene.game.renderer.height, "garth");
+        this.sprite.setInteractive();
+        this.sprite.on('pointerdown', (event) => this.holes.forEach(hole => hole.checkEmptyHit(event.position)));
 
         const width = this.sprite.getBottomRight().x - this.sprite.getTopLeft().x;
         const height = this.sprite.getBottomRight().y - this.sprite.getTopLeft().y;
@@ -25,19 +27,16 @@ export class Garth implements GameObject {
         const holeDimension = new Phaser.Math.Vector2(width / this.holesPerColumn, height / this.holesPerLine);
         this.sprite.setY(scene.game.renderer.height - garthDimension.y / 2);
 
-        [...Array(this.holesPerLine - 1)]
-            .forEach((_, line) => [...Array(this.holesPerColumn)]
-                .forEach((_, column) => {
-                    const holeCenter = new Phaser.Math.Vector2(this.sprite.getTopLeft().x + holeDimension.x * (column + 0.5) + 5,
-                        this.sprite.getTopLeft().y + holeDimension.y * (line + 0.5) - 30 + line * 10);
-                    const hole = new Hole(holeCenter, holeDimension);
-                    hole.create(scene);
-                    this.availableHoles.push(hole);
-                    this.holes.push(hole);
-                }));
+        this.createHoles(holeDimension, scene);
+        this.registerEvents(scene);
+    }
 
 
+    update(delta: number): void {
+        this.holes.forEach(hole => hole.update(delta));
+    }
 
+    private registerEvents(scene: Phaser.Scene) {
         EventManager.on(Events.CREATE_CHARACTER, (character: Character) => {
             if (this.availableHoles.length > 0) {
                 character.create(scene);
@@ -50,8 +49,16 @@ export class Garth implements GameObject {
         EventManager.on(Events.HOLE_AVAILABLE, (hole: Hole) => this.availableHoles.push(hole));
     }
 
-    update(delta: number): void {
-        this.holes.forEach(hole => hole.update(delta));
+    private createHoles(holeDimension, scene: Phaser.Scene) {
+        [...Array(this.holesPerLine - 1)]
+            .forEach((_, line) => [...Array(this.holesPerColumn)]
+                .forEach((_, column) => {
+                    const holeCenter = new Phaser.Math.Vector2(this.sprite.getTopLeft().x + holeDimension.x * (column + 0.5) + 5,
+                        this.sprite.getTopLeft().y + holeDimension.y * (line + 0.5) - 30 + line * 10);
+                    const hole = new Hole(holeCenter, holeDimension);
+                    hole.create(scene);
+                    this.availableHoles.push(hole);
+                    this.holes.push(hole);
+                }));
     }
-
 }

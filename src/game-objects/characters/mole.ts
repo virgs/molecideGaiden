@@ -47,13 +47,15 @@ export class Mole implements Character {
     }
 
     private gotHit() {
-        this.alive = false;
-        this.sprite.anims.play('mole-hit')
-            .once('animationcomplete', () => {
-                EventManager.emit(Events.MOLE_HIT);
-                this.hole.setAvailable();
-                this.sprite.destroy();
-            });
+        if (this.alive) {
+            this.alive = false;
+            this.sprite.anims.play('mole-hit')
+                .once('animationcomplete', () => {
+                    EventManager.emit(Events.MOLE_HIT);
+                    this.hole.setAvailable();
+                    this.sprite.destroy();
+                });
+        }
 
     }
 }

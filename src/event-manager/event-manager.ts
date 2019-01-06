@@ -1,4 +1,5 @@
 export enum Events {
+    HOLE_EMPTY_HIT,
     MOLE_HIT,
     CREATE_CHARACTER,
     HOLE_AVAILABLE,
