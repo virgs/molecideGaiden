@@ -40,6 +40,10 @@ export class MainScene extends Phaser.Scene {
     }
 
     create(): void {
+        this.input.addPointer(3);
+        // http://labs.phaser.io/edit.html?src=src\input\multitouch\two%20touch%20inputs.js
+
+
         this.background = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle");
         this.garth.create(this);
     }

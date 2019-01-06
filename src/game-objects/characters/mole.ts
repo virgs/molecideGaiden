@@ -28,7 +28,6 @@ export class Mole implements Character {
                     EventManager.emit(Events.MOLE_MISS);
                     this.hole.setAvailable();
                     this.sprite.destroy();
-                    // this.sprite.anims.destroy();
                 });
         }
     }
@@ -37,7 +36,9 @@ export class Mole implements Character {
         this.alive = true;
         this.hole = hole;
         const holeCenter = hole.getCenter();
-        this.sprite = this.scene.add.sprite(holeCenter.x, holeCenter.y, this.map.key);
+        this.sprite = this.scene.add.sprite(holeCenter.x, holeCenter.y, this.map.key).setInteractive();
+        this.sprite.on('pointerdown', () => this.gotHit());
+
         Object.keys(this.map.animations).forEach((animation: string) => this.sprite.anims.load('mole-' + animation));
         this.sprite.anims.play('mole-raise')
             .once('animationcomplete', () => {
@@ -45,4 +46,14 @@ export class Mole implements Character {
             })
     }
 
+    private gotHit() {
+        this.alive = false;
+        this.sprite.anims.play('mole-hit')
+            .once('animationcomplete', () => {
+                EventManager.emit(Events.MOLE_HIT);
+                this.hole.setAvailable();
+                this.sprite.destroy();
+            });
+
+    }
 }
