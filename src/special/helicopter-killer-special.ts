@@ -3,9 +3,9 @@ import {EventManager, Events} from "../event-manager/event-manager";
 import {Garden} from "../game-objects/garden";
 import {Hole} from "../game-objects/hole";
 
-export class FirstSpecial implements Special {
+export class HelicopterKillerSpecial implements Special {
     private static readonly TOTAL_DURATION: number = 10 * 1000;
-    private static readonly availableColumns = [0, 1, 2];
+    private static availableColumns = [0, 1, 2];
 
     private readonly column: number;
     private sprite: Phaser.GameObjects.Sprite;
@@ -13,13 +13,12 @@ export class FirstSpecial implements Special {
     private garden: Garden;
 
     constructor(scene: Phaser.Scene, garden: Garden) {
-        EventManager.emit(Events.KILL_EVERY_CHARACTER);
-        this.remainingTime = FirstSpecial.TOTAL_DURATION;
+        this.remainingTime = HelicopterKillerSpecial.TOTAL_DURATION;
         this.garden = garden;
 
-        this.column = FirstSpecial.randomizeColumn();
-        console.log('Creating first special at: ' + this.column);
-        FirstSpecial.availableColumns.splice(this.column, 1);
+        this.column = HelicopterKillerSpecial.randomizeColumn();
+        HelicopterKillerSpecial.availableColumns = HelicopterKillerSpecial.availableColumns.filter(value => value !== this.column);
+        console.log('column: ' + this.column + ' - ' + HelicopterKillerSpecial.availableColumns);
 
         this.sprite = scene.add.sprite(10, 10, "helicopter-killer");
         let holeCenter = this.garden.getHoleCenter(this.column, 1);
@@ -27,7 +26,7 @@ export class FirstSpecial implements Special {
 
         this.sprite.anims.load('helicopter-killer');
         this.sprite.anims.play('helicopter-killer');
-        EventManager.on(Events.HOLE_GOT_MOLE, (hole: Hole) => this.handleMoleCreation(hole))
+        EventManager.on(Events.HOLE_GOT_SOMETHING, (hole: Hole) => this.handleMoleCreation(hole))
     }
 
     isOver(): boolean {
@@ -41,14 +40,14 @@ export class FirstSpecial implements Special {
 
     destroy(): void {
         this.sprite.destroy();
-        FirstSpecial.availableColumns.push(this.column);
+        HelicopterKillerSpecial.availableColumns.push(this.column);
     }
 
     private static randomizeColumn(): number {
-        return Math.floor((Math.random() * FirstSpecial.availableColumns.length));
+        return Math.floor((Math.random() * HelicopterKillerSpecial.availableColumns.length));
     }
 
-    private handleMoleCreation(hole: Hole) {
+    private handleMoleCreation(hole: Hole): void {
         if (!this.isOver() && hole.getPositionInGarden().x === this.column) {
             hole.killCharacter();
         }

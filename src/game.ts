@@ -4,9 +4,12 @@ import "phaser";
 import {SplashScene} from "./scenes/splash-scene";
 import {MainScene} from "./scenes/main-scene";
 
+export const SCALE_RATIO = window.devicePixelRatio / 3;
+
+//https://www.joshmorony.com/how-to-scale-a-game-for-all-device-sizes-in-phaser/
 const config: GameConfig = {
-    width: 800,
-    height: 600,
+    width: 800, //window.innerWidth * window.devicePixelRatio,
+    height: 600, //window.innerHeight * window.devicePixelRatio,
     type: Phaser.AUTO,
     parent: "game",
     scene: [SplashScene, MainScene],

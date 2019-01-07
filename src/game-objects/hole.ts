@@ -29,7 +29,7 @@ export class Hole implements GameObject{
     insertCharacter(character: Character) {
         this.character = character;
         character.attachToHole(this, this.positionInGarden);
-        EventManager.emit(Events.HOLE_GOT_MOLE, this);
+        EventManager.emit(Events.HOLE_GOT_SOMETHING, this);
     }
 
     getCenter() {
