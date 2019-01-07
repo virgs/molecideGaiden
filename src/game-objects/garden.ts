@@ -11,10 +11,12 @@ export class Garden implements GameObject {
     private holeDimension: Phaser.Math.Vector2;
     private availableHoles: Hole[];
     private holes: Hole[];
+    private roots: Phaser.GameObjects.Sprite[];
 
     constructor() {
         this.availableHoles = [];
         this.holes = [];
+        this.roots = [];
     }
 
     create(scene: Phaser.Scene): void {
@@ -69,20 +71,20 @@ export class Garden implements GameObject {
         const gardenCenter = this.garden.getCenter();
         [...Array(4)].forEach((_, index) => {
             const key = 'root-anim-' + index;
-            scene.anims.create({
-                key: key,
-                frames: scene.anims.generateFrameNumbers('root', {
-                    start: index * 4,
-                    end: 3 + index * 4
-                }),
-                repeat: -1,
-                frameRate: 12
-            });
-
             const sprite = scene.add.sprite(gardenCenter.x - gardenBounds.width * (0.5 - Math.random()) * 0.9,
                 gardenBounds.top + gardenBounds.height * (1 - (1 - Math.random()) * 0.05), key);
             sprite.anims.load(key);
             sprite.anims.play(key);
+            this.roots.push(sprite);
         });
+    }
+
+    destroy() {
+        this.holes.forEach((hole) => hole.destroy());
+        this.roots.forEach((root) => root.destroy());
+
+        this.availableHoles = [];
+        this.holes = [];
+        this.roots = [];
     }
 }

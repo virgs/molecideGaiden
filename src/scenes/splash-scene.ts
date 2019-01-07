@@ -29,7 +29,7 @@ export class SplashScene extends Phaser.Scene {
         //         if (this.loadCompleted) {
         //             this.scene.start("MainScene")
         //         } else {
-        this.load.on('complete', () => this.scene.start("MainScene"))
+        this.load.on('complete', () => this.scene.start("ScoreScene"))
         // }
         // }, callbackScope: this
         // });
@@ -59,7 +59,6 @@ export class SplashScene extends Phaser.Scene {
     private loadSprites() {
         const map = this.cache.json.get('characters');
         this.load.spritesheet(map.key, map.filename, map.dimensions);
-        // 505x41
         this.load.spritesheet('life', './assets/images/life.png', {
             frameWidth: 1010,
             frameHeight: 41,

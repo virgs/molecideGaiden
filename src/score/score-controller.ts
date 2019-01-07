@@ -35,9 +35,14 @@ export class ScoreController {
         if (this.score >= ScoreController.MAX_SCORE) {
             this.score = ScoreController.MAX_SCORE;
         } else if (this.score <= 0){
+            EventManager.emit(Events.SCORE_EMPTY);
             this.score = 0;
         }
 
         EventManager.emit(Events.SCORE_UPDATE, this.score / ScoreController.MAX_SCORE);
+    }
+
+    destroy() {
+
     }
 }

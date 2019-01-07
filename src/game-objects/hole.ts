@@ -56,4 +56,10 @@ export class Hole implements GameObject{
             this.character.kill();
         }
     }
+
+    destroy() {
+        if (this.character) {
+            this.character.destroy();
+        }
+    }
 }

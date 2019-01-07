@@ -4,7 +4,7 @@ import {HelicopterKillerSpecial} from "./helicopter-killer-special";
 import {Garden} from "../game-objects/garden";
 import {RabbitCreatorSpecial} from "./rabbit-creator-special";
 import {ScoreFullSpecial} from "./score-full-special";
-import {TimeIncreaser} from "./time-increaser";
+import {TimeIncreaserSpecial} from "./time-increaser-special";
 
 export class SpecialController {
     private readonly garden: Garden;
@@ -41,7 +41,7 @@ export class SpecialController {
                 this.specials.push(new HelicopterKillerSpecial(this.scene, this.garden));
                 break;
             case 2:
-                this.specials.push(new TimeIncreaser());
+                this.specials.push(new TimeIncreaserSpecial());
                 break;
             case 3:
                 this.specials.push(new ScoreFullSpecial());
@@ -63,5 +63,9 @@ export class SpecialController {
         });
 
         indexToRemove.forEach((index) => this.specials.splice(index, 1))
+    }
+
+    destroy() {
+        this.specials.forEach(special => special.destroy());
     }
 }

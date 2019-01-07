@@ -32,26 +32,6 @@ export class SpecialBar implements GameObject {
 
     private loadStars(scene: Phaser.Scene) {
         [...Array(5)].forEach((_, index) => {
-            scene.anims.create({
-                key: 'star-raise-' + index,
-                frames: scene.anims.generateFrameNumbers('stars', {
-                    start: index * 6,
-                    end: 1 + index * 6
-                }),
-                repeat: 0,
-                frameRate: 12
-            });
-
-            scene.anims.create({
-                key: 'star-' + index,
-                frames: scene.anims.generateFrameNumbers('stars', {
-                    start: 2 + index * 6,
-                    end: 5 + index * 6
-                }),
-                repeat: -1,
-                frameRate: 12
-            });
-
             this.sprite.anims.load('star-raise-' + index);
             this.sprite.anims.load('star-' + index);
         });
@@ -60,5 +40,10 @@ export class SpecialBar implements GameObject {
 
     private gotHit() {
         EventManager.emit(Events.SPECIAL_BAR_HIT, this.starCounter);
+    }
+
+    destroy(): void {
+        this.sprite.destroy();
+        this.starCounter = 0;
     }
 }

@@ -39,6 +39,7 @@ export class HelicopterKillerSpecial implements Special {
 
     destroy(): void {
         this.sprite.destroy();
+        this.remainingTime = 0;
         HelicopterKillerSpecial.availableColumns.push(this.column);
     }
 

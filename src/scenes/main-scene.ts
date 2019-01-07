@@ -3,12 +3,14 @@ import {CharacterCreator} from "../game-objects/characters/character-creator";
 import {ScoreController} from "../score/score-controller";
 import {Hud} from "../game-objects/hud/hud";
 import {SpecialController} from "../special/special-controller";
+import {EventManager, Events} from "../event-manager/event-manager";
 
 export class MainScene extends Phaser.Scene {
+    private static animationsLoaded: boolean = false;
+    private garden: Garden;
     private scoreController: ScoreController;
     private specialController: SpecialController;
     private background: Phaser.GameObjects.Sprite;
-    private garden: Garden;
     private hud: Hud;
     private characterCreator: CharacterCreator;
 
@@ -16,20 +18,31 @@ export class MainScene extends Phaser.Scene {
         super({
             key: "MainScene"
         });
+    }
 
+    preload(): void {
+        if (!MainScene.animationsLoaded) {
+            this.loadRoots();
+            this.loadLifeBar();
+            this.loadStars();
+            this.loadCharacters();
+            this.loadSpecials();
+        }
+        MainScene.animationsLoaded = true;
+    }
+
+    create(): void {
         this.garden = new Garden();
         this.hud = new Hud();
         this.scoreController = new ScoreController();
         this.specialController = new SpecialController(this, this.garden);
         this.characterCreator = new CharacterCreator();
-    }
+        EventManager.on(Events.GAME_OVER, (totalTime: object) => {
+            this.destroy();
+            this.scene.start("ScoreScene", {totalTime})
+        });
 
-    preload(): void {
-        this.loadCharacters();
-        this.loadSpecials();
-    }
 
-    create(): void {
         this.input.addPointer(3);
         // http://labs.phaser.io/edit.html?src=src\input\multitouch\two%20touch%20inputs.js
 
@@ -75,5 +88,67 @@ export class MainScene extends Phaser.Scene {
             repeat: -1,
             frameRate: 12
         });
+    }
+
+    private loadStars() {
+        [...Array(5)].forEach((_, index) => {
+            this.anims.create({
+                key: 'star-raise-' + index,
+                frames: this.anims.generateFrameNumbers('stars', {
+                    start: index * 6,
+                    end: 1 + index * 6
+                }),
+                repeat: 0,
+                frameRate: 12
+            });
+
+            this.anims.create({
+                key: 'star-' + index,
+                frames: this.anims.generateFrameNumbers('stars', {
+                    start: 2 + index * 6,
+                    end: 5 + index * 6
+                }),
+                repeat: -1,
+                frameRate: 12
+            });
+
+        });
+    }
+
+    private loadRoots() {
+        [...Array(4)].forEach((_, index) => {
+            const key = 'root-anim-' + index;
+            this.anims.create({
+                key: key,
+                frames: this.anims.generateFrameNumbers('root', {
+                    start: index * 4,
+                    end: 3 + index * 4
+                }),
+                repeat: -1,
+                frameRate: 12
+            });
+        });
+    }
+
+    private loadLifeBar() {
+        this.anims.create({
+            key: 'life',
+            frames: this.anims.generateFrameNumbers('life', {
+                start: 0,
+                end: 3
+            }),
+            repeat: -1,
+            frameRate: 12
+        });
+    }
+
+    private destroy() {
+        EventManager.destroy();
+        this.characterCreator.destroy();
+        this.garden.destroy();
+        this.hud.destroy();
+        this.specialController.destroy();
+        this.scoreController.destroy();
+
     }
 }

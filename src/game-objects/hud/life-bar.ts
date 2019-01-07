@@ -2,7 +2,7 @@ import {GameObject} from "../game-object";
 import {EventManager, Events} from "../../event-manager/event-manager";
 
 export class LifeBar implements GameObject {
-    private static readonly EASE_PACE = 0.05;
+    private static readonly EASE_PACE = 0.5;
     private static readonly TOLERANCE = 0.001;
 
     private lifeTube: Phaser.GameObjects.Sprite;
@@ -19,8 +19,6 @@ export class LifeBar implements GameObject {
 
 
     create(scene: Phaser.Scene): void {
-        this.loadAnimation(scene);
-
         this.life = scene.add.sprite(scene.game.renderer.width / 2, scene.game.renderer.height / 15, 'life');
         this.lifeInitialOffset = scene.game.renderer.width / 2 + this.life.getBounds().width / 4;
         this.life.setX(this.lifeInitialOffset - (1 - this.currentScore) * this.life.getBounds().width / 2);
@@ -48,15 +46,12 @@ export class LifeBar implements GameObject {
         }
     }
 
-    private loadAnimation(scene: Phaser.Scene) {
-        scene.anims.create({
-            key: 'life',
-            frames: scene.anims.generateFrameNumbers('life', {
-                start: 0,
-                end: 3
-            }),
-            repeat: -1,
-            frameRate: 12
-        });
+    destroy(): void {
+        this.currentScore = 1;
+        this.targetScore = 1;
+
+        this.life.destroy();
+        this.lifeTube.destroy();
     }
+
 }

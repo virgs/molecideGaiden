@@ -36,15 +36,17 @@ export class CharacterPrototype implements Character {
         this.duration -= delta;
         if (this.alive && this.duration <= 0 && !this.startMissing) {
             this.startMissing = true;
-            this.sprite.anims.play(`${this.characterConfig.name}-miss`)
-                .once('animationcomplete', () => {
-                    if (this.alive) {
-                        EventManager.emit(this.characterConfig.events.miss);
-                        this.alive = false;
-                        this.hole.setAvailable();
-                        this.sprite.destroy();
-                    }
-                });
+            if (this.sprite) {
+                this.sprite.anims.play(`${this.characterConfig.name}-miss`)
+                    .once('animationcomplete', () => {
+                        if (this.alive) {
+                            EventManager.emit(this.characterConfig.events.miss);
+                            this.alive = false;
+                            this.hole.setAvailable();
+                            this.destroy();
+                        }
+                    });
+            }
         }
     }
 
@@ -67,11 +69,20 @@ export class CharacterPrototype implements Character {
         if (this.alive) {
             this.alive = false;
             EventManager.emit(this.characterConfig.events.hit);
-            this.sprite.anims.play(`${this.characterConfig.name}-hit`)
-                .once('animationcomplete', () => {
-                    this.hole.setAvailable();
-                    this.sprite.destroy();
-                });
+            if (this.sprite) {
+                this.sprite.anims.play(`${this.characterConfig.name}-hit`)
+                    .once('animationcomplete', () => {
+                        this.hole.setAvailable();
+                        this.destroy();
+                    });
+            }
+        }
+    }
+
+    destroy(): void {
+        if (this.sprite) {
+            this.sprite.destroy();
+            this.sprite = null;
         }
     }
 }

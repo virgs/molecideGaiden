@@ -3,6 +3,7 @@
 import "phaser";
 import {SplashScene} from "./scenes/splash-scene";
 import {MainScene} from "./scenes/main-scene";
+import {ScoreScene} from "./scenes/score-scene";
 
 export const SCALE_RATIO = window.devicePixelRatio / 3;
 
@@ -12,7 +13,7 @@ const config: GameConfig = {
     height: 600, //window.innerHeight * window.devicePixelRatio,
     type: Phaser.AUTO,
     parent: "game",
-    scene: [SplashScene, MainScene],
+    scene: [SplashScene, ScoreScene, MainScene],
 };
 
 export class Game extends Phaser.Game {

@@ -1,4 +1,6 @@
 export enum Events {
+    GAME_OVER,
+    SCORE_EMPTY,
     INCREASE_TIME,
     SCORE_FULL,
     KILL_EVERY_CHARACTER,
@@ -41,5 +43,9 @@ export class EventManager {
     public static on(event: Events, fn: Function, context?: any): Phaser.Events.EventEmitter {
         const emitter = this.getEmitter();
         return emitter.on(Events[event], fn, context);
+    }
+
+    static destroy() {
+        EventManager.singleton = null;
     }
 }

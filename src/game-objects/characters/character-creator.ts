@@ -54,4 +54,8 @@ export class CharacterCreator {
     static decreaseRabbitProbability() {
         CharacterCreator.RABBIT_PROBABILITY = 0.2;
     }
+
+    destroy() {
+        CharacterCreator.decreaseRabbitProbability();
+    }
 }

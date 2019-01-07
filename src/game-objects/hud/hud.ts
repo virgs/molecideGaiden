@@ -28,4 +28,8 @@ export class Hud implements GameObject{
     update(delta: number): void {
         this.hudList.forEach(object => object.update(delta));
     }
+
+    destroy() {
+        this.hudList.forEach((item) => item.destroy());
+    }
 }
