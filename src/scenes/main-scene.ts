@@ -2,9 +2,11 @@ import {Garden} from "../game-objects/garden";
 import {CharacterCreator} from "../game-objects/characters/character-creator";
 import {ScoreController} from "../score/score-controller";
 import {Hud} from "../game-objects/hud/hud";
+import {SpecialController} from "../special/special-controller";
 
 export class MainScene extends Phaser.Scene {
     private scoreController: ScoreController;
+    private specialController: SpecialController;
     private background: Phaser.GameObjects.Sprite;
     private garden: Garden;
     private hud: Hud;
@@ -18,6 +20,7 @@ export class MainScene extends Phaser.Scene {
         this.garden = new Garden();
         this.hud = new Hud();
         this.scoreController = new ScoreController();
+        this.specialController = new SpecialController();
         this.characterCreator = new CharacterCreator();
     }
 

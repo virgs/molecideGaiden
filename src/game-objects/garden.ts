@@ -20,11 +20,11 @@ export class Garden implements GameObject {
 
     create(scene: Phaser.Scene): void {
         this.garth = scene.add.sprite(scene.game.renderer.width / 2, scene.game.renderer.height, "garth");
+        this.garth.setY(scene.game.renderer.height - this.garth.getBounds().y / 2 - 20);
         this.garth.setInteractive();
         this.garth.on('pointerdown', (event) => this.holes.forEach(hole => hole.checkEmptyHit(event.position)));
 
         const holeDimension = new Phaser.Math.Vector2(this.garth.getBounds().width / this.holesPerColumn, this.garth.getBounds().height / this.holesPerLine);
-        this.garth.setY(scene.game.renderer.height - this.garth.getBounds().y / 2 - 20);
 
         this.createHoles(holeDimension, scene);
         this.createRoots(scene);
@@ -66,7 +66,7 @@ export class Garden implements GameObject {
         const garthBounds = this.garth.getBounds();
         const garthCenter = this.garth.getCenter();
         [...Array(4)].forEach((_, index) => {
-            let key = 'root-anim-' + index;
+            const key = 'root-anim-' + index;
             scene.anims.create({
                 key: key,
                 frames: scene.anims.generateFrameNumbers('root', {
