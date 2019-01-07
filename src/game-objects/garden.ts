@@ -3,7 +3,7 @@ import {Hole} from "./hole";
 import {EventManager, Events} from "../event-manager/event-manager";
 import {Character} from "./characters/character";
 
-export class Garth implements GameObject {
+export class Garden implements GameObject {
     private readonly holesPerLine = 4;
     private readonly holesPerColumn = 3;
 

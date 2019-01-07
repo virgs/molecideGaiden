@@ -1,4 +1,4 @@
-import {Garth} from "../game-objects/garth";
+import {Garden} from "../game-objects/garden";
 import {CharacterCreator} from "../game-objects/characters/character-creator";
 import {ScoreController} from "../score/score-controller";
 import {Hud} from "../game-objects/hud/hud";
@@ -6,7 +6,7 @@ import {Hud} from "../game-objects/hud/hud";
 export class MainScene extends Phaser.Scene {
     private scoreController: ScoreController;
     private background: Phaser.GameObjects.Sprite;
-    private garth: Garth;
+    private garden: Garden;
     private hud: Hud;
     private characterCreator: CharacterCreator;
 
@@ -15,7 +15,7 @@ export class MainScene extends Phaser.Scene {
             key: "MainScene"
         });
 
-        this.garth = new Garth();
+        this.garden = new Garden();
         this.hud = new Hud();
         this.scoreController = new ScoreController();
         this.characterCreator = new CharacterCreator();
@@ -31,13 +31,13 @@ export class MainScene extends Phaser.Scene {
 
 
         this.background = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle");
-        this.garth.create(this);
+        this.garden.create(this);
         this.hud.create(this);
     }
 
     update(time: number, delta: number): void {
         this.characterCreator.update(delta);
-        this.garth.update(delta);
+        this.garden.update(delta);
         this.hud.update(delta);
     }
 
