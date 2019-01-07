@@ -18,6 +18,7 @@ export class SplashScene extends Phaser.Scene {
     public create(): void {
         this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "splash");
         this.loadImages();
+        this.loadFonts();
         this.loadSounds();
         this.loadSprites();
         this.load.start();
@@ -28,9 +29,9 @@ export class SplashScene extends Phaser.Scene {
         //         if (this.loadCompleted) {
         //             this.scene.start("MainScene")
         //         } else {
-                    this.load.on('complete', () => this.scene.start("MainScene"))
-                // }
-            // }, callbackScope: this
+        this.load.on('complete', () => this.scene.start("MainScene"))
+        // }
+        // }, callbackScope: this
         // });
 
     }
@@ -51,13 +52,25 @@ export class SplashScene extends Phaser.Scene {
         soundsToLoad.forEach(sound => this.load.audio(sound, `./assets/sounds/${sound}.png`));
     }
 
+    private loadFonts() {
+        this.load.bitmapFont('scoreFont', `./assets/fonts/Monofett.png`, `./assets/fonts/Monofett.fnt`);
+    }
+
     private loadSprites() {
         const map = this.cache.json.get('characters');
         this.load.spritesheet(map.key, map.filename, map.dimensions);
         // 505x41
-        this.load.spritesheet('life', './assets/images/life.png', {frameWidth: 1010, frameHeight: 41, startFrame: 0, endFrame: 3});
+        this.load.spritesheet('life', './assets/images/life.png', {
+            frameWidth: 1010,
+            frameHeight: 41,
+            startFrame: 0,
+            endFrame: 3
+        });
         this.load.spritesheet('root', './assets/images/root.png', {frameWidth: 70});
-        this.load.spritesheet('helicopter-killer', './assets/images/helicopter-killer.png', {frameWidth: 85, frameHeight: 361});
+        this.load.spritesheet('helicopter-killer', './assets/images/helicopter-killer.png', {
+            frameWidth: 85,
+            frameHeight: 361
+        });
         this.load.spritesheet('stars', './assets/images/stars.png', {frameWidth: 60, frameHeight: 200});
     }
 }

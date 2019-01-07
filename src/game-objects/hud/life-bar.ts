@@ -2,7 +2,7 @@ import {GameObject} from "../game-object";
 import {EventManager, Events} from "../../event-manager/event-manager";
 
 export class LifeBar implements GameObject {
-    private static readonly EASE_PACE = 0.01;
+    private static readonly EASE_PACE = 0.05;
     private static readonly TOLERANCE = 0.001;
 
     private lifeTube: Phaser.GameObjects.Sprite;
