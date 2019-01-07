@@ -1,4 +1,5 @@
 export enum Events {
+    SCORE_FULL,
     KILL_EVERY_CHARACTER,
     HOLE_GOT_SOMETHING,
     SPECIAL_BAR_HIT,

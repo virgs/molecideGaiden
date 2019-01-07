@@ -19,6 +19,7 @@ export class ScoreController {
     public constructor() {
         this.score = ScoreController.MAX_SCORE;
 
+        EventManager.on(Events.SCORE_FULL, () => this.updateScore(ScoreController.MAX_SCORE));
         EventManager.on(Events.HOLE_EMPTY_HIT, () => this.updateScore(ScoreController.HOLE_EMPTY_HIT_SCORE));
         EventManager.on(Events.MOLE_MISS, () => this.updateScore(ScoreController.MOLE_MISS_SCORE));
         EventManager.on(Events.MOLE_HIT, () => this.updateScore(ScoreController.MOLE_HIT_SCORE));

@@ -3,6 +3,7 @@ import {Special} from "./special";
 import {HelicopterKillerSpecial} from "./helicopter-killer-special";
 import {Garden} from "../game-objects/garden";
 import {RabbitCreatorSpecial} from "./rabbit-creator-special";
+import {ScoreFullSpecial} from "./score-full-special";
 
 export class SpecialController {
     private specialCounter: number;
@@ -42,6 +43,7 @@ export class SpecialController {
                 this.specials.push(new HelicopterKillerSpecial(this.scene, this.garden));
                 break;
             case 3:
+                this.specials.push(new ScoreFullSpecial());
                 break;
             case 4:
                 break;

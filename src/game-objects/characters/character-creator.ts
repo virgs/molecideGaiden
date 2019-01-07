@@ -48,7 +48,7 @@ export class CharacterCreator {
     }
 
     static increaseRabbitProbability() {
-        CharacterCreator.RABBIT_PROBABILITY = 0.95;
+        CharacterCreator.RABBIT_PROBABILITY = 0.8;
     }
 
     static decreaseRabbitProbability() {

@@ -15,7 +15,6 @@ export class RabbitCreatorSpecial implements Special {
         ++RabbitCreatorSpecial.instances;
     }
 
-
     destroy(): void {
         --RabbitCreatorSpecial.instances;
         if (RabbitCreatorSpecial.instances <= 0) {
