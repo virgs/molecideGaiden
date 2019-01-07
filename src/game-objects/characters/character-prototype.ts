@@ -50,12 +50,15 @@ export class CharacterPrototype implements Character {
         }
     }
 
-    attachToHole(hole: Hole, positionInGarden: Phaser.Math.Vector2): void {
-        this.positionInGarden = positionInGarden;
+    attachToHole(hole: Hole): void {
+        this.positionInGarden = hole.getPositionInGarden();
         this.alive = true;
         this.hole = hole;
         const holeCenter = hole.getCenter();
         this.sprite = this.scene.add.sprite(holeCenter.x, holeCenter.y, this.map.key).setInteractive();
+        const scaleRatio = hole.getScaleRatio();
+        this.sprite.setScale(scaleRatio, scaleRatio);
+
         this.sprite.on('pointerdown', () => this.kill());
 
         Object.keys(this.map.animations).forEach((animation: string) => this.sprite.anims.load('mole-' + animation));

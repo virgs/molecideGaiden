@@ -7,9 +7,11 @@ export class Hole implements GameObject{
     private readonly holeDimension: Phaser.Math.Vector2;
     private readonly sensor: Phaser.Geom.Circle;
     private readonly positionInGarden: Phaser.Math.Vector2;
+    private readonly scaleRatio: number;
     private character: Character;
 
-    constructor(positionInGarden: Phaser.Math.Vector2, holeCenter: Phaser.Math.Vector2, holeDimension: Phaser.Math.Vector2) {
+    constructor(positionInGarden: Phaser.Math.Vector2, holeCenter: Phaser.Math.Vector2, holeDimension: Phaser.Math.Vector2, scaleRatio: number) {
+        this.scaleRatio = scaleRatio;
         this.positionInGarden = positionInGarden;
         this.holeCenter = holeCenter;
         this.holeDimension = holeDimension;
@@ -28,7 +30,7 @@ export class Hole implements GameObject{
 
     insertCharacter(character: Character) {
         this.character = character;
-        character.attachToHole(this, this.positionInGarden);
+        character.attachToHole(this);
         EventManager.emit(Events.HOLE_GOT_SOMETHING, this);
     }
 
@@ -61,5 +63,9 @@ export class Hole implements GameObject{
         if (this.character) {
             this.character.destroy();
         }
+    }
+
+    getScaleRatio() {
+        return this.scaleRatio;
     }
 }

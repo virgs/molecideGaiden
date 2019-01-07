@@ -1,3 +1,4 @@
+
 export class ScoreScene extends Phaser.Scene {
     private lastScore: number;
     private maxScore: number;
@@ -9,6 +10,7 @@ export class ScoreScene extends Phaser.Scene {
     }
 
     public create(value: { totalTime: number }) {
+        const startMainScene = () => this.scene.start("MainScene");
         this.lastScore = value ? value.totalTime || 0 : 0;
         this.maxScore = Number(localStorage.getItem('maxScore'));
         if (this.lastScore > this.maxScore) {
@@ -16,6 +18,9 @@ export class ScoreScene extends Phaser.Scene {
             this.maxScore = this.lastScore;
         }
         const background = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle").setInteractive();
+        background.on('pointerdown', startMainScene);
+        const scaleRatio = Math.max(window.innerWidth / background.getBounds().width, window.innerHeight / background.getBounds().height);
+        background.setScale(scaleRatio, scaleRatio);
 
         const titleText = this.add.bitmapText(this.game.renderer.width / 2, this.game.renderer.height / 20,
             'scoreFont', `HIT   ANYWHERE   BEGIN`, 60, 2);
@@ -25,9 +30,6 @@ export class ScoreScene extends Phaser.Scene {
             'scoreFont', `CURRENT SCORE: ${this.lastScore}\r\nMAX SCORE: ${this.maxScore}`, 60, 2);
         scoreText.setOrigin(0.5);
 
-        const startMainScene = () => this.scene.start("MainScene");
-
-        background.on('pointerdown', startMainScene);
     }
 
 }

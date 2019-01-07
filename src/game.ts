@@ -5,12 +5,10 @@ import {SplashScene} from "./scenes/splash-scene";
 import {MainScene} from "./scenes/main-scene";
 import {ScoreScene} from "./scenes/score-scene";
 
-export const SCALE_RATIO = window.devicePixelRatio / 3;
-
 //https://www.joshmorony.com/how-to-scale-a-game-for-all-device-sizes-in-phaser/
 const config: GameConfig = {
-    width: 800, //window.innerWidth * window.devicePixelRatio,
-    height: 600, //window.innerHeight * window.devicePixelRatio,
+    width: window.innerWidth,
+    height: window.innerHeight,
     type: Phaser.AUTO,
     parent: "game",
     scene: [SplashScene, ScoreScene, MainScene],
@@ -22,6 +20,34 @@ export class Game extends Phaser.Game {
     }
 }
 
+const resize = () => {
+    const canvas = document.querySelector("#game") as any;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    const windowRatio = windowWidth / windowHeight;
+    const gameRatio = game.config.width / game.config.height;
+    if (windowRatio < gameRatio) {
+        canvas.style.width = windowWidth + "px";
+        canvas.style.height = (windowWidth / gameRatio) + "px";
+    }
+    else {
+        canvas.style.width = (windowHeight * gameRatio) + "px";
+        canvas.style.height = windowHeight + "px";
+    }
+
+};
+
+let game;
+
 window.addEventListener("load", () => {
-    new Game(config);
+    game = new Game(config);
+    resize();
+    window.addEventListener("resize", resize, false);
 });
+
+
+window.addEventListener('resize', () => {
+    // game.resize(window.innerWidth, window.innerHeight);
+});
+
+

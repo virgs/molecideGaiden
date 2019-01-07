@@ -48,6 +48,10 @@ export class MainScene extends Phaser.Scene {
 
 
         this.background = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle");
+        const scaleRatio = Math.max(window.innerWidth / this.background.getBounds().width, window.innerHeight / this.background.getBounds().height);
+        this.background.setScale(scaleRatio, scaleRatio);
+
+
         this.garden.create(this);
         this.hud.create(this);
     }
