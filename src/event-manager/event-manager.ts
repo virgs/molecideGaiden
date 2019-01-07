@@ -1,4 +1,5 @@
 export enum Events {
+    INCREASE_TIME,
     SCORE_FULL,
     KILL_EVERY_CHARACTER,
     HOLE_GOT_SOMETHING,
