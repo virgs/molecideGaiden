@@ -18,11 +18,11 @@ export class HelicopterKillerSpecial implements Special {
 
         this.column = HelicopterKillerSpecial.randomizeColumn();
         HelicopterKillerSpecial.availableColumns = HelicopterKillerSpecial.availableColumns.filter(value => value !== this.column);
-        console.log('column: ' + this.column + ' - ' + HelicopterKillerSpecial.availableColumns);
 
         this.sprite = scene.add.sprite(10, 10, "helicopter-killer");
         let holeCenter = this.garden.getHoleCenter(this.column, 1);
         this.sprite.setPosition(holeCenter.x, holeCenter.y + 10);
+        this.sprite.setDepth(9999999);
 
         this.sprite.anims.load('helicopter-killer');
         this.sprite.anims.play('helicopter-killer');
@@ -34,7 +34,6 @@ export class HelicopterKillerSpecial implements Special {
     }
 
     update(delta: number): void {
-        this.sprite.setDepth(9999999);
         this.remainingTime -= delta;
     }
 

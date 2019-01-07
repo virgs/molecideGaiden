@@ -2,6 +2,7 @@ import {EventManager, Events} from "../event-manager/event-manager";
 import {Special} from "./special";
 import {HelicopterKillerSpecial} from "./helicopter-killer-special";
 import {Garden} from "../game-objects/garden";
+import {RabbitCreatorSpecial} from "./rabbit-creator-special";
 
 export class SpecialController {
     private specialCounter: number;
@@ -35,9 +36,10 @@ export class SpecialController {
         EventManager.emit(Events.KILL_EVERY_CHARACTER);
         switch (this.specialCounter) {
             case 1:
-                this.specials.push(new HelicopterKillerSpecial(this.scene, this.garden));
+                this.specials.push(new RabbitCreatorSpecial());
                 break;
             case 2:
+                this.specials.push(new HelicopterKillerSpecial(this.scene, this.garden));
                 break;
             case 3:
                 break;

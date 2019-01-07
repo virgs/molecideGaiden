@@ -2,6 +2,9 @@ import {EventManager, Events} from "../../event-manager/event-manager";
 import {CharacterFactory} from "./character-factory";
 
 export class CharacterCreator {
+    private static STAR_PROBABILITY = 0.075;
+    private static RABBIT_PROBABILITY = 0.20;
+
     private static SIN_HEIGHT = 0.1*1000;
     private static CYCLE_WIDTH = 15*1000;
 
@@ -36,11 +39,19 @@ export class CharacterCreator {
     };
 
     private randomizeCharacter(duration: number) {
-        if (CharacterCreator.probability(0.075)) {
+        if (CharacterCreator.probability(CharacterCreator.STAR_PROBABILITY)) {
             return CharacterFactory.createStar(duration);
-        } else if (CharacterCreator.probability(0.20)) {
+        } else if (CharacterCreator.probability(CharacterCreator.RABBIT_PROBABILITY)) {
             return CharacterFactory.createRabbit(duration);
         }
         return CharacterFactory.createMole(duration);
+    }
+
+    static increaseRabbitProbability() {
+        CharacterCreator.RABBIT_PROBABILITY = 0.95;
+    }
+
+    static decreaseRabbitProbability() {
+        CharacterCreator.RABBIT_PROBABILITY = 0.2;
     }
 }
