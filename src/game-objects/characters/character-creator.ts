@@ -25,7 +25,6 @@ export class CharacterCreator {
         if (this.nextCreationTimeCounter <= 0) {
             this.creationTime *= 0.95;
             this.nextCreationTimeCounter = this.creationTime + Math.random() * 100 + 10;
-            console.log(this.nextCreationTimeCounter + "; " + this.totalTime);
             this.duration *= 0.9;
             this.createCharacter();
         }
