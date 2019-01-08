@@ -13,7 +13,8 @@ export class Time implements GameObject {
         this.totalTime = 0;
         EventManager.on(Events.INCREASE_TIME, () => this.totalTime += 30 * 1000);
         EventManager.on(Events.SCORE_EMPTY, () => EventManager.emit(Events.GAME_OVER, this.stringifyTime()));
-        this.text = scene.add.bitmapText(scene.game.renderer.width * 0.83, scene.game.renderer.height / 30, 'scoreFont', this.totalTime.toString(), 45);
+        // this.text = scene.add.bitmapText(scene.game.renderer.width * 0.83, scene.game.renderer.height / 30, 'scoreFont', this.totalTime.toString(), 45);
+        this.text = scene.add.bitmapText(scene.game.renderer.width * 0.83, scene.game.renderer.height / 30, 'scoreFont', this.totalTime.toString(), 60);
     }
 
     update(delta: number): void {

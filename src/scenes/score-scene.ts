@@ -1,6 +1,5 @@
-
 export class ScoreScene extends Phaser.Scene {
-    private lastScore: number;
+    private lastScore: number | string;
     private maxScore: number;
 
     constructor() {
@@ -11,25 +10,43 @@ export class ScoreScene extends Phaser.Scene {
 
     public create(value: { totalTime: number }) {
         const startMainScene = () => this.scene.start("MainScene");
-        this.lastScore = value ? value.totalTime || 0 : 0;
+        this.lastScore = value ? value.totalTime ||  '-' :  '-';
         this.maxScore = Number(localStorage.getItem('maxScore'));
         if (this.lastScore > this.maxScore) {
             localStorage.setItem('maxScore', this.lastScore.toString());
-            this.maxScore = this.lastScore;
+            this.maxScore = Number(this.lastScore);
         }
-        const background = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle").setInteractive();
-        background.on('pointerdown', startMainScene);
-        const scaleRatio = Math.max(window.innerWidth / background.getBounds().width, window.innerHeight / background.getBounds().height);
-        background.setScale(scaleRatio, scaleRatio);
-
-        const titleText = this.add.bitmapText(this.game.renderer.width / 2, this.game.renderer.height / 20,
-            'scoreFont', `HIT   ANYWHERE   BEGIN`, 60, 2);
-        titleText.setOrigin(0.5, 0);
-
-        const scoreText = this.add.bitmapText(this.game.renderer.width / 2, this.game.renderer.height / 2,
-            'scoreFont', `CURRENT SCORE: ${this.lastScore}\r\nMAX SCORE: ${this.maxScore}`, 60, 2);
-        scoreText.setOrigin(0.5);
-
+        this.addBackground(startMainScene);
+        this.addTitle();
+        this.addScoreBoard();
     }
 
+    private addScoreBoard() {
+        const scoreTitle = this.add.bitmapText(this.game.renderer.width * 0.05, this.game.renderer.height * 0.5,
+            'scoreFont', `SCORE:\r\n\r\nMAX:`, 60, 0);
+        scoreTitle.setTintFill(0xb6b600);
+
+        const scoreText = this.add.bitmapText(this.game.renderer.width * 0.95, this.game.renderer.height * 0.5,
+            'scoreFont', `${this.lastScore}\r\n\r\n${this.maxScore}`, 60, 2);
+        scoreText.setOrigin(1, 0);
+        scoreText.setTintFill(0xb6b600);
+    }
+
+    private addTitle() {
+        const titleText = this.add.bitmapText(this.game.renderer.width * 0.035, this.game.renderer.height * 0.05,
+            'scoreFont', `LET THE CARNAGE BEGIN`, 52, 0);
+        titleText.setTintFill(0xa60000);
+        const titleScaleRatio = Math.min(window.innerWidth * 0.9 / titleText.getTextBounds().global.width, window.innerHeight * 0.2 / titleText.getTextBounds().global.height);
+        titleText.setScale(titleScaleRatio, titleScaleRatio);
+    }
+
+    private addBackground(startMainScene) {
+        const background = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle").setInteractive();
+        background.setAlpha(0.2);
+        background.setBlendMode(Phaser.BlendModes.ADD);
+        background.setTint(0xFFFFFF);
+        background.on('pointerdown', startMainScene);
+        const backgroundScaleRatio = Math.max(window.innerWidth / background.getBounds().width, window.innerHeight / background.getBounds().height);
+        background.setScale(backgroundScaleRatio, backgroundScaleRatio);
+    }
 }

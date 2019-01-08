@@ -53,7 +53,8 @@ export class SplashScene extends Phaser.Scene {
     }
 
     private loadFonts() {
-        this.load.bitmapFont('scoreFont', `./assets/fonts/Monofett.png`, `./assets/fonts/Monofett.fnt`);
+        // this.load.bitmapFont('scoreFont', `./assets/fonts/Monofett.png`, `./assets/fonts/Monofett.fnt`);
+        this.load.bitmapFont('scoreFont', `./assets/fonts/PressStart2P-Regular.png`, `./assets/fonts/PressStart2P-Regular.fnt`);
     }
 
     private loadSprites() {
