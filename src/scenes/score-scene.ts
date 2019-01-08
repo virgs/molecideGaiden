@@ -34,7 +34,7 @@ export class ScoreScene extends Phaser.Scene {
 
     private addTitle() {
         const titleText = this.add.bitmapText(this.game.renderer.width * 0.035, this.game.renderer.height * 0.05,
-            'scoreFont', `LET THE CARNAGE BEGIN`, 52, 0);
+            'scoreFont', `TERMINATE THE MOLES`, 52, 0);
         titleText.setTintFill(0xa60000);
         const titleScaleRatio = Math.min(window.innerWidth * 0.9 / titleText.getTextBounds().global.width, window.innerHeight * 0.2 / titleText.getTextBounds().global.height);
         titleText.setScale(titleScaleRatio, titleScaleRatio);

@@ -3,34 +3,31 @@ import {CharacterFactory} from "./character-factory";
 
 export class CharacterCreator {
     private static STAR_PROBABILITY = 0.075;
-    private static RABBIT_PROBABILITY = 0.20;
+    private static RABBIT_PROBABILITY = 0.1;
 
-    private static SIN_HEIGHT = 0.1 * 1000;
-    private static CYCLE_WIDTH = 15 * 1000;
-
+    private nextCreationTimeCounter: number;
+    private creationTime: number;
+    private duration: number;
     private totalTime: number;
-    private nextCreationTime: number;
-
 
     public constructor() {
+        this.creationTime = 2000;
+        this.nextCreationTimeCounter = this.creationTime;
+        this.duration = 1000;
+
         this.totalTime = 0;
-        this.nextCreationTime = 2 * 1000;
     }
 
     public update(delta: number) {
         this.totalTime += delta;
-        if (this.totalTime >= CharacterCreator.CYCLE_WIDTH) {
-            this.totalTime -= CharacterCreator.CYCLE_WIDTH
-        }
+        this.nextCreationTimeCounter -= delta;
 
-        this.nextCreationTime -= delta;
-
-        if (this.nextCreationTime <= 0) {
-            this.nextCreationTime = 0.05 * 1000 + Math.random() * 500;
-            // this.nextCreationTime = Math.log(this.totalTime * 100 + 1000) -
-            //                     Math.sin((this.totalTime - CharacterCreator.CYCLE_WIDTH) * Math.PI / CharacterCreator.CYCLE_WIDTH) * CharacterCreator.SIN_HEIGHT;
-            const duration = 0.05 * 1000 + Math.random() * 750;
-            this.createCharacter(duration);
+        if (this.nextCreationTimeCounter <= 0) {
+            this.creationTime *= 0.95;
+            this.nextCreationTimeCounter = this.creationTime + Math.random() * 100 + 10;
+            console.log(this.nextCreationTimeCounter + "; " + this.totalTime);
+            this.duration *= 0.9;
+            this.createCharacter();
         }
 
     }
@@ -39,13 +36,15 @@ export class CharacterCreator {
         return !!probability && Math.random() <= probability;
     };
 
-    private createCharacter(duration: number): void {
+    private createCharacter(): void {
+        const duration = this.duration + Math.random() * 75;
         if (CharacterCreator.probability(CharacterCreator.STAR_PROBABILITY)) {
             EventManager.emit(Events.STAR_CREATED, CharacterFactory.createStar(duration));
         } else if (CharacterCreator.probability(CharacterCreator.RABBIT_PROBABILITY)) {
             EventManager.emit(Events.RABBIT_CREATED, CharacterFactory.createRabbit(duration));
+        } else {
+            EventManager.emit(Events.MOLE_CREATED, CharacterFactory.createMole(duration));
         }
-        EventManager.emit(Events.MOLE_CREATED, CharacterFactory.createMole(duration));
     }
 
     static increaseRabbitProbability() {
@@ -53,7 +52,7 @@ export class CharacterCreator {
     }
 
     static decreaseRabbitProbability() {
-        CharacterCreator.RABBIT_PROBABILITY = 0.2;
+        CharacterCreator.RABBIT_PROBABILITY = 0.1;
     }
 
     destroy() {
