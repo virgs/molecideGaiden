@@ -7,8 +7,10 @@ export class Hole implements GameObject{
     private readonly holeDimension: Phaser.Math.Vector2;
     private readonly sensor: Phaser.Geom.Circle;
     private character: Character;
+    private positionInGarden: Phaser.Math.Vector2;
 
-    constructor(holeCenter: Phaser.Math.Vector2, holeDimension: Phaser.Math.Vector2) {
+    constructor(positionInGarden: Phaser.Math.Vector2, holeCenter: Phaser.Math.Vector2, holeDimension: Phaser.Math.Vector2) {
+        this.positionInGarden = positionInGarden;
         this.holeCenter = holeCenter;
         this.holeDimension = holeDimension;
         this.sensor = new Phaser.Geom.Circle(this.holeCenter.x, this.holeCenter.y, this.holeDimension.x/2);
@@ -26,7 +28,8 @@ export class Hole implements GameObject{
 
     insertCharacter(character: Character) {
         this.character = character;
-        character.attachToHole(this);
+        character.attachToHole(this, this.positionInGarden);
+        EventManager.emit(Events.HOLE_GOT_MOLE, this);
     }
 
     getCenter() {

@@ -19,6 +19,7 @@ export class CharacterPrototype implements Character {
     private alive = false;
     private startMissing = false;
     private characterConfig: CharacterPrototypeConfig;
+    private positionInGarden: Phaser.Math.Vector2;
 
     constructor(characterConfig: CharacterPrototypeConfig, duration: number) {
         this.characterConfig = characterConfig;
@@ -46,7 +47,8 @@ export class CharacterPrototype implements Character {
         }
     }
 
-    attachToHole(hole: Hole): void {
+    attachToHole(hole: Hole, positionInGarden: Phaser.Math.Vector2): void {
+        this.positionInGarden = positionInGarden;
         this.alive = true;
         this.hole = hole;
         const holeCenter = hole.getCenter();
