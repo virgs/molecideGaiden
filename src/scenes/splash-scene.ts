@@ -47,9 +47,12 @@ export class SplashScene extends Phaser.Scene {
     }
 
     private loadSounds() {
-        const soundsToLoad = [];
+        // const soundsToLoad = [];
 
-        soundsToLoad.forEach(sound => this.load.audio(sound, `./assets/sounds/${sound}.png`));
+        console.log('loading charPop');
+        this.load.audio('charPop', './assets/sounds/charPop.wav');
+
+        // soundsToLoad.forEach(sound => this.load.audio(sound, `./assets/sounds/${sound}.png`));
     }
 
     private loadFonts() {

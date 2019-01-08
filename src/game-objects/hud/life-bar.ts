@@ -19,6 +19,9 @@ export class LifeBar implements GameObject {
 
 
     create(scene: Phaser.Scene): void {
+        // http://labs.phaser.io/edit.html?src=src\textures\crop%20texture%20image%20scaled.js
+
+
         this.life = scene.add.sprite(scene.game.renderer.width / 2, scene.game.renderer.height / 15, 'life');
         this.lifeInitialOffset = scene.game.renderer.width / 2 + this.life.getBounds().width / 4;
         this.life.setX(this.lifeInitialOffset - (1 - this.currentScore) * this.life.getBounds().width / 2);

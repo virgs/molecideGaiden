@@ -4,11 +4,13 @@ import {ScoreController} from "../score/score-controller";
 import {Hud} from "../game-objects/hud/hud";
 import {SpecialController} from "../special/special-controller";
 import {EventManager, Events} from "../event-manager/event-manager";
+import {SoundManager} from "../sound/sound-manager";
 
 export class MainScene extends Phaser.Scene {
     private static animationsLoaded: boolean = false;
     private garden: Garden;
     private scoreController: ScoreController;
+    private soundManager: SoundManager;
     private specialController: SpecialController;
     private background: Phaser.GameObjects.Sprite;
     private hud: Hud;
@@ -35,6 +37,7 @@ export class MainScene extends Phaser.Scene {
         this.garden = new Garden();
         this.hud = new Hud();
         this.scoreController = new ScoreController();
+        this.soundManager = new SoundManager(this);
         this.specialController = new SpecialController(this, this.garden);
         this.characterCreator = new CharacterCreator();
         EventManager.on(Events.GAME_OVER, (totalTime: object) => {
@@ -60,6 +63,7 @@ export class MainScene extends Phaser.Scene {
         this.characterCreator.update(delta);
         this.garden.update(delta);
         this.hud.update(delta);
+        this.soundManager.update(delta);
         this.specialController.update(delta);
     }
 
