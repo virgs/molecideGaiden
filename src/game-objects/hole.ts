@@ -6,8 +6,8 @@ export class Hole implements GameObject{
     private readonly holeCenter: Phaser.Math.Vector2;
     private readonly holeDimension: Phaser.Math.Vector2;
     private readonly sensor: Phaser.Geom.Circle;
+    private readonly positionInGarden: Phaser.Math.Vector2;
     private character: Character;
-    private positionInGarden: Phaser.Math.Vector2;
 
     constructor(positionInGarden: Phaser.Math.Vector2, holeCenter: Phaser.Math.Vector2, holeDimension: Phaser.Math.Vector2) {
         this.positionInGarden = positionInGarden;
@@ -42,8 +42,18 @@ export class Hole implements GameObject{
     }
 
     checkEmptyHit(position: Phaser.Math.Vector2) {
-        if (this.sensor.contains(position.x, position.y)) {
+        if (!this.character && this.sensor.contains(position.x, position.y)) {
             EventManager.emit(Events.HOLE_EMPTY_HIT);
+        }
+    }
+
+    public getPositionInGarden(): Phaser.Math.Vector2 {
+        return this.positionInGarden;
+    }
+
+    public killCharacter() {
+        if (this.character) {
+            this.character.kill();
         }
     }
 }

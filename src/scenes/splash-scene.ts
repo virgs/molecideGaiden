@@ -57,6 +57,7 @@ export class SplashScene extends Phaser.Scene {
         // 505x41
         this.load.spritesheet('life', './assets/images/life.png', {frameWidth: 1010, frameHeight: 41, startFrame: 0, endFrame: 3});
         this.load.spritesheet('root', './assets/images/root.png', {frameWidth: 70});
+        this.load.spritesheet('helicopter-killer', './assets/images/helicopter-killer.png', {frameWidth: 85, frameHeight: 361});
         this.load.spritesheet('stars', './assets/images/stars.png', {frameWidth: 60, frameHeight: 200});
     }
 }

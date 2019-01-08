@@ -23,10 +23,10 @@ export class CharacterCreator {
         this.nextCreationTime -= delta;
 
         if (this.nextCreationTime <= 0) {
-            this.nextCreationTime = 2*1000;
+            this.nextCreationTime = 0.5*1000;
             // this.nextCreationTime = Math.log(this.totalTime * 100 + 1000) -
             //                     Math.sin((this.totalTime - CharacterCreator.CYCLE_WIDTH) * Math.PI / CharacterCreator.CYCLE_WIDTH) * CharacterCreator.SIN_HEIGHT;
-            EventManager.emit(Events.CREATE_CHARACTER, this.randomizeCharacter(2*1000));
+            EventManager.emit(Events.CREATE_CHARACTER, this.randomizeCharacter(1.5*1000));
         }
 
     }

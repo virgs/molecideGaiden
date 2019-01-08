@@ -15,7 +15,7 @@ export class SpecialBar implements GameObject {
         this.sprite.on('pointerdown', () => this.gotHit());
 
         this.loadStars(scene);
-        this.playAnimation()
+        this.playAnimation();
 
         EventManager.on(Events.STAR_COUNTER_UPDATE, (starCounter) => {
             this.starCounter = starCounter;

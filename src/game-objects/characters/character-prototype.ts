@@ -29,6 +29,7 @@ export class CharacterPrototype implements Character {
     create(scene: Phaser.Scene): void {
         this.scene = scene;
         this.map = scene.cache.json.get('characters');
+        EventManager.on(Events.KILL_EVERY_CHARACTER, () => this.kill());
     }
 
     update(delta: number): void {
@@ -53,7 +54,7 @@ export class CharacterPrototype implements Character {
         this.hole = hole;
         const holeCenter = hole.getCenter();
         this.sprite = this.scene.add.sprite(holeCenter.x, holeCenter.y, this.map.key).setInteractive();
-        this.sprite.on('pointerdown', () => this.gotHit());
+        this.sprite.on('pointerdown', () => this.kill());
 
         Object.keys(this.map.animations).forEach((animation: string) => this.sprite.anims.load('mole-' + animation));
         this.sprite.anims.play(`${this.characterConfig.name}-raise`)
@@ -62,7 +63,7 @@ export class CharacterPrototype implements Character {
             })
     }
 
-    private gotHit() {
+    public kill(): void {
         if (this.alive) {
             this.alive = false;
             EventManager.emit(this.characterConfig.events.hit);
@@ -72,7 +73,6 @@ export class CharacterPrototype implements Character {
                     this.sprite.destroy();
                 });
         }
-
     }
 }
 

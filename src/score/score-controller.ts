@@ -36,6 +36,7 @@ export class ScoreController {
         } else if (this.score <= 0){
             this.score = 0;
         }
+
         EventManager.emit(Events.SCORE_UPDATE, this.score / ScoreController.MAX_SCORE);
     }
 }

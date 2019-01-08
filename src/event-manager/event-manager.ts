@@ -1,4 +1,5 @@
 export enum Events {
+    KILL_EVERY_CHARACTER,
     HOLE_GOT_MOLE,
     SPECIAL_BAR_HIT,
     STAR_COUNTER_UPDATE,

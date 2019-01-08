@@ -20,12 +20,13 @@ export class MainScene extends Phaser.Scene {
         this.garden = new Garden();
         this.hud = new Hud();
         this.scoreController = new ScoreController();
-        this.specialController = new SpecialController();
+        this.specialController = new SpecialController(this, this.garden);
         this.characterCreator = new CharacterCreator();
     }
 
     preload(): void {
         this.loadCharacters();
+        this.loadSpecials();
     }
 
     create(): void {
@@ -42,6 +43,7 @@ export class MainScene extends Phaser.Scene {
         this.characterCreator.update(delta);
         this.garden.update(delta);
         this.hud.update(delta);
+        this.specialController.update(delta);
     }
 
     private loadCharacters(): void {
@@ -60,6 +62,18 @@ export class MainScene extends Phaser.Scene {
                 });
                 frameCounter += 8;
             });
+        });
+    }
+
+    private loadSpecials() {
+        this.anims.create({
+            key: 'helicopter-killer',
+            frames: this.anims.generateFrameNumbers('helicopter-killer', {
+                start: 0,
+                end: 1
+            }),
+            repeat: -1,
+            frameRate: 12
         });
     }
 }
