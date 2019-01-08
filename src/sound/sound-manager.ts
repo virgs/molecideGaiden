@@ -2,19 +2,34 @@ import {EventManager, Events} from "../event-manager/event-manager";
 
 export class SoundManager {
     private soundsToPlayNextIteration: {};
+    private scene: Phaser.Scene;
 
     public constructor(scene: Phaser.Scene) {
+        this.scene = scene;
         this.soundsToPlayNextIteration = {};
-        this.addNewCharEvent(Events.CREATE_CHARACTER, 'charPop', scene);
+        this.addSoundToEvent(Events.MOLE_CREATED, ['charPop']);
+        this.addSoundToEvent(Events.MOLE_HIT, [...Array(9)].map((_, index) => `die${index}`));
+
+        this.addSoundToEvent(Events.RABBIT_CREATED, ['charPop']);
+        this.addSoundToEvent(Events.RABBIT_HIT, ['rabbitHit']);
+
+        this.addSoundToEvent(Events.STAR_CREATED, ['starRaise']);
+        this.addSoundToEvent(Events.STAR_HIT, ['starHit']);
+
+        this.addSoundToEvent(Events.HOLE_EMPTY_HIT, ['wrongHit']);
+        this.addSoundToEvent(Events.SPECIAL_BAR_HIT, ['specialBarHit']);
     }
 
-    public update(delta: number) {
+    public update() {
         (Object.keys(this.soundsToPlayNextIteration) || []).forEach(key => this.soundsToPlayNextIteration[key].play());
         this.soundsToPlayNextIteration = {};
     }
 
-    private addNewCharEvent(event: Events, name: string, scene: Phaser.Scene) {
-        const audio = scene.sound.add(name, {loop: false});
-        EventManager.on(event, () => this.soundsToPlayNextIteration[name] = audio);
+    private addSoundToEvent(event: Events, sounds: string[]) {
+        EventManager.on(event, () => {
+            const randomizedIndex = Math.floor((Math.random() * sounds.length));
+            const name = sounds[randomizedIndex];
+            this.soundsToPlayNextIteration[name] = this.scene.sound.add(name, {loop: false});
+        });
     }
 }

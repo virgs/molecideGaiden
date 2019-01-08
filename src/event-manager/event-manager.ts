@@ -1,4 +1,7 @@
 export enum Events {
+    MOLE_CREATED,
+    RABBIT_CREATED,
+    STAR_CREATED,
     GAME_OVER,
     SCORE_EMPTY,
     INCREASE_TIME,
@@ -14,7 +17,6 @@ export enum Events {
     STAR_HIT,
     HOLE_EMPTY_HIT,
     MOLE_HIT,
-    CREATE_CHARACTER,
     HOLE_AVAILABLE,
     MOLE_MISS
 }

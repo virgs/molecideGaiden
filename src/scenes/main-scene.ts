@@ -40,10 +40,10 @@ export class MainScene extends Phaser.Scene {
         this.soundManager = new SoundManager(this);
         this.specialController = new SpecialController(this, this.garden);
         this.characterCreator = new CharacterCreator();
-        EventManager.on(Events.GAME_OVER, (totalTime: object) => {
-            this.destroy();
-            this.scene.start("ScoreScene", {totalTime})
-        });
+        // EventManager.on(Events.GAME_OVER, (totalTime: object) => {
+        //     this.destroy();
+        //     this.scene.start("ScoreScene", {totalTime})
+        // });
 
 
         this.input.addPointer(3);
@@ -63,7 +63,7 @@ export class MainScene extends Phaser.Scene {
         this.characterCreator.update(delta);
         this.garden.update(delta);
         this.hud.update(delta);
-        this.soundManager.update(delta);
+        this.soundManager.update();
         this.specialController.update(delta);
     }
 

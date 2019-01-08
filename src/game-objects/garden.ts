@@ -41,14 +41,17 @@ export class Garden implements GameObject {
     }
 
     private registerEvents(scene: Phaser.Scene) {
-        EventManager.on(Events.CREATE_CHARACTER, (character: Character) => {
+        const insertChar = (character: Character) => {
             if (this.availableHoles.length > 0) {
                 character.create(scene);
                 const randomIndex = Math.floor((Math.random() * this.availableHoles.length));
                 this.availableHoles[randomIndex].insertCharacter(character);
                 this.availableHoles.splice(randomIndex, 1)
             }
-        });
+        };
+        EventManager.on(Events.MOLE_CREATED, insertChar);
+        EventManager.on(Events.STAR_CREATED, insertChar);
+        EventManager.on(Events.RABBIT_CREATED, insertChar);
 
         EventManager.on(Events.HOLE_AVAILABLE, (hole: Hole) => this.availableHoles.push(hole));
     }

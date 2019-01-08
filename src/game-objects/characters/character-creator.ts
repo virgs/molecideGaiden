@@ -29,7 +29,8 @@ export class CharacterCreator {
             this.nextCreationTime = 0.05 * 1000 + Math.random() * 500;
             // this.nextCreationTime = Math.log(this.totalTime * 100 + 1000) -
             //                     Math.sin((this.totalTime - CharacterCreator.CYCLE_WIDTH) * Math.PI / CharacterCreator.CYCLE_WIDTH) * CharacterCreator.SIN_HEIGHT;
-            EventManager.emit(Events.CREATE_CHARACTER, this.randomizeCharacter(0.05 * 1000 + Math.random() * 750));
+            const duration = 0.05 * 1000 + Math.random() * 750;
+            this.createCharacter(duration);
         }
 
     }
@@ -38,13 +39,13 @@ export class CharacterCreator {
         return !!probability && Math.random() <= probability;
     };
 
-    private randomizeCharacter(duration: number) {
+    private createCharacter(duration: number): void {
         if (CharacterCreator.probability(CharacterCreator.STAR_PROBABILITY)) {
-            return CharacterFactory.createStar(duration);
+            EventManager.emit(Events.STAR_CREATED, CharacterFactory.createStar(duration));
         } else if (CharacterCreator.probability(CharacterCreator.RABBIT_PROBABILITY)) {
-            return CharacterFactory.createRabbit(duration);
+            EventManager.emit(Events.RABBIT_CREATED, CharacterFactory.createRabbit(duration));
         }
-        return CharacterFactory.createMole(duration);
+        EventManager.emit(Events.MOLE_CREATED, CharacterFactory.createMole(duration));
     }
 
     static increaseRabbitProbability() {

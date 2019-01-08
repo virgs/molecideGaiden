@@ -1,3 +1,5 @@
+import {Events} from "../event-manager/event-manager";
+
 export class SplashScene extends Phaser.Scene {
 
     private static readonly MIN_TIME: 2000;
@@ -47,12 +49,17 @@ export class SplashScene extends Phaser.Scene {
     }
 
     private loadSounds() {
-        // const soundsToLoad = [];
+        const soundsToLoad = [
+            "charPop",
+            "rabbitHit",
+            "starRaise",
+            "starHit",
+            "wrongHit",
+            "specialBarHit"
+        ].concat([...Array(9)].map((_, index) => `die${index}`));
 
-        console.log('loading charPop');
-        this.load.audio('charPop', './assets/sounds/charPop.wav');
+        soundsToLoad.forEach((sound) => this.load.audio(sound, `./assets/sounds/${sound}.wav`));
 
-        // soundsToLoad.forEach(sound => this.load.audio(sound, `./assets/sounds/${sound}.png`));
     }
 
     private loadFonts() {
