@@ -38,7 +38,7 @@ export class SplashScene extends Phaser.Scene {
     private loadImages() {
         const imagesToLoad = [
             "background-castle",
-            "garth",
+            "garden",
             "life-tube",
         ];
 

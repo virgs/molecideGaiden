@@ -1,5 +1,5 @@
 {
-  "name": "mole-garth-garden",
+  "name": "molecide-garden",
   "version": "1.2.2",
   "description": "digHoleNightGarden remastered",
   "keywords": [
@@ -25,14 +25,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lopidio/moleGarthGaiden.git"
+    "url": "git+https://github.com/lopidio/molecideGaiden.git"
   },
   "author": {
     "name": "lopidio",
     "email": "guilherme.moraes@outlook.com"
   },
   "bugs": {
-    "url": "https://github.com/lopidio/moleGarthGaiden/issues"
+    "url": "https://github.com/lopidio/molecideGaiden/issues"
   },
-  "homepage": "https://github.com/lopidio/moleGarthGaiden#readme"
+  "homepage": "https://github.com/lopidio/molecideGaiden#readme"
 }
