@@ -17,11 +17,17 @@
     "webpack-dev-server": "3.1.14"
   },
   "dependencies": {
+    "@capacitor/android": "^1.0.0-beta.13",
+    "@capacitor/cli": "^1.0.0-beta.13",
+    "@capacitor/core": "^1.0.0-beta.13",
+    "@capacitor/ios": "^1.0.0-beta.13",
     "phaser": "3.15.1"
   },
   "scripts": {
-    "dev": "webpack --mode development && webpack-dev-server --mode development",
-    "build": "webpack --mode production && webpack-dev-server --mode production"
+    "copy": "cp index.html www/index.html && cp -fR assets www && cp src/service-worker.js www/service-worker.js && cp src/manifest.json www/manifest.json && cp sw-toolbox.js www/sw-toolbox.js",
+    "dev": "webpack && npm run copy && webpack-dev-server --mode development",
+    "prod": "webpack && npm run copy && webpack-dev-server --mode production",
+    "build": "webpack --mode production && npm run copy && npx cap copy"
   },
   "repository": {
     "type": "git",
