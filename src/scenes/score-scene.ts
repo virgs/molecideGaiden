@@ -9,14 +9,13 @@ export class ScoreScene extends Phaser.Scene {
     }
 
     public create(value: { totalTime: number }) {
-        const startMainScene = () => this.scene.start("MainScene");
-        this.lastScore = value ? value.totalTime ||  '-' :  '-';
+        this.lastScore = value ? value.totalTime || '-' : '-';
         this.maxScore = Number(localStorage.getItem('maxScore'));
         if (this.lastScore > this.maxScore) {
             localStorage.setItem('maxScore', this.lastScore.toString());
             this.maxScore = Number(this.lastScore);
         }
-        this.addBackground(startMainScene);
+        this.addBackground();
         this.addTitle();
         this.addScoreBoard();
     }
@@ -40,12 +39,16 @@ export class ScoreScene extends Phaser.Scene {
         titleText.setScale(titleScaleRatio, titleScaleRatio);
     }
 
-    private addBackground(startMainScene) {
+    private addBackground() {
         const background = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "background-castle").setInteractive();
         background.setAlpha(0.2);
         background.setBlendMode(Phaser.BlendModes.ADD);
         background.setTint(0xFFFFFF);
-        background.on('pointerdown', startMainScene);
+
+        this.time.addEvent({
+            delay: 2000,
+            callback: () => background.on('pointerdown', () => this.scene.start("MainScene"))
+        });
         const backgroundScaleRatio = Math.max(window.innerWidth / background.getBounds().width, window.innerHeight / background.getBounds().height);
         background.setScale(backgroundScaleRatio, backgroundScaleRatio);
     }
