@@ -1,0 +1,6 @@
+{
+  "appId": "com.virgs.molecidegaiden",
+  "appName": "Molecide Gaiden",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
