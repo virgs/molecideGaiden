@@ -42,7 +42,9 @@ export class SpecialBar implements GameObject {
 
 
     private gotHit() {
-        EventManager.emit(Events.SPECIAL_BAR_HIT, this.starCounter);
+        if (this.starCounter > 0) {
+            EventManager.emit(Events.SPECIAL_BAR_HIT, this.starCounter);
+        }
     }
 
     destroy(): void {
