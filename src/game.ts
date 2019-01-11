@@ -5,8 +5,6 @@ import {SplashScene} from "./scenes/splash-scene";
 import {MainScene} from "./scenes/main-scene";
 import {ScoreScene} from "./scenes/score-scene";
 
-import { Plugins } from '@capacitor/core';
-
 //https://www.joshmorony.com/how-to-scale-a-game-for-all-device-sizes-in-phaser/
 const config: GameConfig = {
     width: window.innerWidth,
@@ -16,14 +14,9 @@ const config: GameConfig = {
     scene: [SplashScene, ScoreScene, MainScene],
 };
 
-const { StatusBar, SplashScreen } = Plugins;
-
 export class Game extends Phaser.Game {
     constructor(config: GameConfig) {
         super(config);
-
-        StatusBar.hide();
-        SplashScreen.hide();
     }
 }
 
