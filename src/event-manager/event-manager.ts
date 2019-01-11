@@ -1,4 +1,5 @@
 export enum Events {
+    GAME_BEGIN,
     MOLE_CREATED,
     RABBIT_CREATED,
     STAR_CREATED,

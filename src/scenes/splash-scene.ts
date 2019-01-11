@@ -26,15 +26,15 @@ export class SplashScene extends Phaser.Scene {
         this.load.start();
         this.load.on('complete', () => this.loadCompleted = true);
 
-        // this.time.addEvent({
-        //     delay: 2000, callback: () => { //TODO wait untill animation is complete
-        //         if (this.loadCompleted) {
-        //             this.scene.start("MainScene")
-        //         } else {
-        this.load.on('complete', () => this.scene.start("ScoreScene"))
-        // }
-        // }, callbackScope: this
-        // });
+        this.time.addEvent({
+            delay: 2000, callback: () => { //TODO wait untill animation is complete
+                if (this.loadCompleted) {
+                    this.scene.start("ScoreScene")
+                } else {
+                    this.load.on('complete', () => this.scene.start("ScoreScene"))
+                }
+            }
+        });
 
     }
 
@@ -49,16 +49,19 @@ export class SplashScene extends Phaser.Scene {
     }
 
     private loadSounds() {
-        const soundsToLoad = [
-            "charPop",
-            "rabbitHit",
-            "starRaise",
-            "starHit",
-            "wrongHit",
-            "specialBarHit"
-        ].concat([...Array(9)].map((_, index) => `die${index}`));
-
-        soundsToLoad.forEach((sound) => this.load.audio(sound, `./assets/sounds/${sound}.wav`));
+        this.load.audio('backgroundMusic', `./assets/sounds/backgroundMusic.mp3`);
+        this.load.audio('charPop', `./assets/sounds/charPop.mp3`);
+        this.load.audio('die0', `./assets/sounds/die0.wav`);
+        this.load.audio('die1', `./assets/sounds/die1.wav`);
+        this.load.audio('die2', `./assets/sounds/die2.wav`);
+        this.load.audio('die3', `./assets/sounds/die3.mp3`);
+        this.load.audio('die4', `./assets/sounds/die4.mp3`);
+        this.load.audio('gameOver', `./assets/sounds/gameOver.wav`);
+        this.load.audio('rabbitHit', `./assets/sounds/rabbitHit.wav`);
+        this.load.audio('specialBarHit', `./assets/sounds/specialBarHit.wav`);
+        this.load.audio('starHit', `./assets/sounds/starHit.wav`);
+        this.load.audio('starRaise', `./assets/sounds/starRaise.mp3`);
+        this.load.audio('wrongHit', `./assets/sounds/wrongHit.wav`);
 
     }
 

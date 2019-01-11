@@ -20,7 +20,10 @@ export class HelicopterKillerSpecial implements Special {
         HelicopterKillerSpecial.availableColumns = HelicopterKillerSpecial.availableColumns.filter(value => value !== this.column);
 
         this.sprite = scene.add.sprite(10, 10, "helicopter-killer");
-        let holeCenter = this.garden.getHoleCenter(this.column, 1);
+        const scaleRatio = window.innerHeight * 0.7 / this.sprite.getBounds().height;
+        this.sprite.setScale(scaleRatio, scaleRatio);
+
+        const holeCenter = this.garden.getHoleCenter(this.column, 1);
         this.sprite.setPosition(holeCenter.x, holeCenter.y + 10);
         this.sprite.setDepth(9999999);
 

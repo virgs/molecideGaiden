@@ -40,6 +40,7 @@ export class MainScene extends Phaser.Scene {
         this.soundManager = new SoundManager(this);
         this.specialController = new SpecialController(this, this.garden);
         this.characterCreator = new CharacterCreator();
+        EventManager.emit(Events.GAME_BEGIN);
         EventManager.on(Events.GAME_OVER, (totalTime: object) => {
             this.destroy();
             this.scene.start("ScoreScene", {totalTime})

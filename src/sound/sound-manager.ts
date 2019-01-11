@@ -7,8 +7,10 @@ export class SoundManager {
     public constructor(scene: Phaser.Scene) {
         this.scene = scene;
         this.soundsToPlayNextIteration = {};
+
+
         this.addSoundToEvent(Events.MOLE_CREATED, ['charPop']);
-        this.addSoundToEvent(Events.MOLE_HIT, [...Array(9)].map((_, index) => `die${index}`));
+        this.addSoundToEvent(Events.MOLE_HIT, [...Array(5)].map((_, index) => `die${index}`));
 
         this.addSoundToEvent(Events.RABBIT_CREATED, ['charPop']);
         this.addSoundToEvent(Events.RABBIT_HIT, ['rabbitHit']);
@@ -18,6 +20,8 @@ export class SoundManager {
 
         this.addSoundToEvent(Events.HOLE_EMPTY_HIT, ['wrongHit']);
         this.addSoundToEvent(Events.SPECIAL_BAR_HIT, ['specialBarHit']);
+
+        this.addGameStateSounds();
     }
 
     public update() {
@@ -29,7 +33,17 @@ export class SoundManager {
         EventManager.on(event, () => {
             const randomizedIndex = Math.floor((Math.random() * sounds.length));
             const name = sounds[randomizedIndex];
-            this.soundsToPlayNextIteration[name] = this.scene.sound.add(name, {loop: false});
+            this.soundsToPlayNextIteration[name] = this.scene.sound.add(name);
+        });
+    }
+
+    private addGameStateSounds() {
+        const backgroundMusic = this.scene.sound.add('backgroundMusic', {loop: true});
+        EventManager.on(Events.GAME_BEGIN, () => backgroundMusic.play())
+        const gameOver = this.scene.sound.add('gameOver');
+        EventManager.on(Events.GAME_OVER, () => {
+            backgroundMusic.stop();
+            gameOver.play();
         });
     }
 }
