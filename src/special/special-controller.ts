@@ -4,7 +4,7 @@ import {HelicopterKillerSpecial} from "./helicopter-killer-special";
 import {Garden} from "../game-objects/garden";
 import {RabbitCreatorSpecial} from "./rabbit-creator-special";
 import {ScoreFullSpecial} from "./score-full-special";
-import {TimeIncreaserSpecial} from "./time-increaser-special";
+import {IncreaseCreationTimeSpecial} from "./increase-creation-time-special";
 
 export class SpecialController {
     private readonly garden: Garden;
@@ -38,13 +38,13 @@ export class SpecialController {
         EventManager.emit(Events.KILL_EVERY_CHARACTER);
         switch (this.specialCounter) {
             case 1:
-                this.specials.push(new HelicopterKillerSpecial(this.scene, this.garden));
+                this.specials.push(new ScoreFullSpecial());
                 break;
             case 2:
-                this.specials.push(new TimeIncreaserSpecial());
+                this.specials.push(new HelicopterKillerSpecial(this.scene, this.garden));
                 break;
             case 3:
-                this.specials.push(new ScoreFullSpecial());
+                this.specials.push(new IncreaseCreationTimeSpecial());
                 break;
             case 4:
                 this.specials.push(new RabbitCreatorSpecial());

@@ -1,9 +1,9 @@
 import {Special} from "./special";
 import {EventManager, Events} from "../event-manager/event-manager";
 
-export class TimeIncreaserSpecial implements Special {
+export class IncreaseCreationTimeSpecial implements Special {
     public constructor() {
-        EventManager.emit(Events.INCREASE_TIME);
+        EventManager.emit(Events.INCREASE_CREATION_TIME);
     }
 
     destroy(): void {

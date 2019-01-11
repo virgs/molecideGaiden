@@ -1,5 +1,5 @@
 import {Special} from "./special";
-import {CharacterCreator} from "../game-objects/characters/character-creator";
+import {EventManager, Events} from "../event-manager/event-manager";
 
 export class RabbitCreatorSpecial implements Special {
     private static readonly TOTAL_DURATION: number = 10 * 1000;
@@ -10,7 +10,7 @@ export class RabbitCreatorSpecial implements Special {
     public constructor() {
         this.remainingTime = RabbitCreatorSpecial.TOTAL_DURATION;
         if (RabbitCreatorSpecial.instances == 0) {
-            CharacterCreator.increaseRabbitProbability();
+            EventManager.emit(Events.INCREASE_RABBIT_PROBABILITY);
         }
         ++RabbitCreatorSpecial.instances;
     }
@@ -18,7 +18,7 @@ export class RabbitCreatorSpecial implements Special {
     destroy(): void {
         --RabbitCreatorSpecial.instances;
         if (RabbitCreatorSpecial.instances <= 0) {
-            CharacterCreator.decreaseRabbitProbability();
+            EventManager.emit(Events.DECREASE_RABBIT_PROBABILITY);
         }
     }
 
