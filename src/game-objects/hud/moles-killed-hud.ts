@@ -1,7 +1,7 @@
 import {GameObject} from "../game-object";
 import {EventManager, Events} from "../../event-manager/event-manager";
 
-export class ScoreHud implements GameObject {
+export class MolesKilledHud implements GameObject {
     private totalScore: number;
     private text: Phaser.GameObjects.BitmapText;
 
@@ -11,9 +11,8 @@ export class ScoreHud implements GameObject {
 
     create(scene: Phaser.Scene): void {
         this.totalScore = 0;
+        EventManager.on(Events.LIFE_BAR_EMPTY, () => EventManager.emit(Events.GAME_OVER, this.totalScore));
         EventManager.on(Events.MOLE_HIT, () => ++this.totalScore);
-        EventManager.on(Events.SCORE_EMPTY, () => EventManager.emit(Events.GAME_OVER, this.totalScore));
-        // this.text = scene.add.bitmapText(scene.game.renderer.width * 0.83, scene.game.renderer.height / 30, 'scoreFont', this.totalScore.toString(), 45);
         this.text = scene.add.bitmapText(scene.game.renderer.width * 0.92, scene.game.renderer.height * 0.1, 'scoreFont', this.totalScore.toString(), 60);
         const scaleRatio = window.innerWidth * 0.03 / this.text.getTextBounds().global.width;
         this.text.setOrigin(1, 0.5);

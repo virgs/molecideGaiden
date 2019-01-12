@@ -1,7 +1,7 @@
 import {GameObject} from "../game-object";
 import {LifeBar} from "./life-bar";
 import {SpecialBar} from "./special-bar";
-import {ScoreHud} from "./score-hud";
+import {MolesKilledHud} from "./moles-killed-hud";
 
 export class Hud implements GameObject{
     private hudList: GameObject[];
@@ -17,7 +17,7 @@ export class Hud implements GameObject{
         const specialBar = new SpecialBar();
         specialBar.create(scene);
 
-        const time = new ScoreHud();
+        const time = new MolesKilledHud();
         time.create(scene);
 
         this.hudList.push(life);
