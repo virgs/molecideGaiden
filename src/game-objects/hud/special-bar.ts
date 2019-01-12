@@ -13,7 +13,7 @@ export class SpecialBar implements GameObject {
         this.sprite = scene.add.sprite(10, 10, "stars").setInteractive();
         const scaleRatio = Math.min(window.innerWidth * 0.15 / this.sprite.getBounds().width, window.innerHeight * 0.45 / this.sprite.getBounds().height);
         this.sprite.setScale(scaleRatio, scaleRatio);
-        this.sprite.setPosition(this.sprite.getCenter().x + window.innerWidth * 0.05, this.sprite.getCenter().y + window.innerHeight * 0.21);
+        this.sprite.setPosition(this.sprite.getCenter().x + window.innerWidth * 0.05, this.sprite.getCenter().y + window.innerHeight * 0.2);
 
         this.sprite.on('pointerdown', () => this.gotHit());
 
