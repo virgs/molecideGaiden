@@ -61,6 +61,7 @@ export class MainScene extends Phaser.Scene {
     }
 
     update(time: number, delta: number): void {
+        this.scoreController.update(delta);
         this.characterCreator.update(delta);
         this.garden.update(delta);
         this.hud.update(delta);

@@ -3,16 +3,17 @@ import {EventManager, Events} from "../event-manager/event-manager";
 export class ScoreController {
 
     //TODO extract these values to a configuration file
-    private static readonly MAX_SCORE = 100;
+    private static readonly MAX_SCORE: number = 100;
 
-    private static readonly HOLE_EMPTY_HIT_SCORE = -20;
+    private static readonly HOLE_EMPTY_HIT_SCORE: number = -10;
 
-    private static readonly MOLE_MISS_SCORE = -15;
-    private static readonly MOLE_HIT_SCORE = 5;
-    private static readonly STAR_MISS_SCORE = -50;
-    private static readonly STAR_HIT_SCORE = 20;
-    private static readonly RABBIT_MISS_SCORE = 0;
-    private static readonly RABBIT_HIT_SCORE = -30;
+    private static readonly MOLE_MISS_SCORE: number = -5;
+    private static readonly MOLE_HIT_SCORE: number = 5;
+    private static readonly STAR_MISS_SCORE: number = -20;
+    private static readonly STAR_HIT_SCORE: number = 15;
+    private static readonly RABBIT_MISS_SCORE: number = 2;
+    private static readonly RABBIT_HIT_SCORE: number = -20;
+    private static readonly SCORE_HEALED_PER_SECOND: number = 3;
 
     private score: number;
 
@@ -34,7 +35,7 @@ export class ScoreController {
         this.score += score;
         if (this.score >= ScoreController.MAX_SCORE) {
             this.score = ScoreController.MAX_SCORE;
-        } else if (this.score <= 0){
+        } else if (this.score <= 0) {
             EventManager.emit(Events.SCORE_EMPTY);
             this.score = 0;
         }
@@ -44,5 +45,9 @@ export class ScoreController {
 
     destroy() {
 
+    }
+
+    update(delta: number) {
+        this.updateScore(delta * ScoreController.SCORE_HEALED_PER_SECOND * 0.001);
     }
 }
