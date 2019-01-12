@@ -14,7 +14,7 @@ export class CharacterCreator {
         this.nextCreationTimeCounter = this.creationTime;
         this.duration = 1000;
 
-        EventManager.on(Events.INCREASE_CREATION_TIME, () => this.increaseRabbitProbability());
+        EventManager.on(Events.INCREASE_RABBIT_PROBABILITY, () => this.increaseRabbitProbability());
         EventManager.on(Events.DECREASE_RABBIT_PROBABILITY, () => this.decreaseRabbitProbability());
         EventManager.on(Events.INCREASE_CREATION_TIME, () => this.increaseCreationTime());
     }
@@ -23,12 +23,11 @@ export class CharacterCreator {
         this.nextCreationTimeCounter -= delta;
 
         if (this.nextCreationTimeCounter <= 0) {
-            this.creationTime *= 0.95;
-            this.nextCreationTimeCounter = this.creationTime + Math.random() * 100 + 10;
+            this.creationTime *= 0.975;
+            this.nextCreationTimeCounter = this.creationTime + Math.random() * 100 + 50;
             this.duration *= 0.9;
             this.createCharacter();
         }
-
     }
 
     destroy() {
@@ -51,13 +50,12 @@ export class CharacterCreator {
     }
 
     private increaseRabbitProbability() {
-        CharacterCreator.RABBIT_PROBABILITY = 0.8;
+        CharacterCreator.RABBIT_PROBABILITY = 0.75;
     }
 
     private decreaseRabbitProbability() {
         CharacterCreator.RABBIT_PROBABILITY = 0.1;
     }
-
 
     private increaseCreationTime() {
         this.creationTime = this.creationTime * 1.5 + 500;

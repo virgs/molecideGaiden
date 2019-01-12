@@ -7,13 +7,13 @@ export class ScoreController {
 
     private static readonly HOLE_EMPTY_HIT_SCORE: number = -10;
 
-    private static readonly MOLE_MISS_SCORE: number = -5;
+    private static readonly MOLE_MISS_SCORE: number = -10;
     private static readonly MOLE_HIT_SCORE: number = 5;
     private static readonly STAR_MISS_SCORE: number = -20;
     private static readonly STAR_HIT_SCORE: number = 15;
-    private static readonly RABBIT_MISS_SCORE: number = 2;
+    private static readonly RABBIT_MISS_SCORE: number = 1;
     private static readonly RABBIT_HIT_SCORE: number = -20;
-    private static readonly SCORE_HEALED_PER_SECOND: number = 3;
+    private static readonly SCORE_HEALED_PER_SECOND: number = 1;
 
     private score: number;
 

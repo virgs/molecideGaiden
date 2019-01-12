@@ -47,6 +47,7 @@ export class SpecialController {
                 this.specials.push(new IncreaseCreationTimeSpecial());
                 break;
             case 4:
+            default:
                 this.specials.push(new RabbitCreatorSpecial());
                 break;
         }
