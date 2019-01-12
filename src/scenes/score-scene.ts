@@ -25,7 +25,6 @@ export class ScoreScene extends Phaser.Scene {
             'scoreFont', `SCORE:\r\n\r\nMAX:`, 60, 0);
         scoreTitle.setTintFill(0xb6b600);
         const titleScaleRatio = Math.min(window.innerWidth * 0.35 / scoreTitle.getTextBounds().global.width, 1);
-        console.log(titleScaleRatio);
         scoreTitle.setScale(titleScaleRatio, titleScaleRatio);
 
         const scoreText = this.add.bitmapText(this.game.renderer.width * 0.95, this.game.renderer.height * 0.35,

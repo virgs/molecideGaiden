@@ -9,8 +9,8 @@ export class LifeBar implements GameObject {
     private life: Phaser.GameObjects.Sprite;
     private currentScore;
     private targetScore;
+    private lifeXPosition: number;
     private lifeDimension: Phaser.Geom.Rectangle;
-    private lifeInitialOffset: number;
 
     public constructor() {
         this.currentScore = 1;
@@ -21,12 +21,10 @@ export class LifeBar implements GameObject {
     create(scene: Phaser.Scene): void {
         // http://labs.phaser.io/edit.html?src=src\textures\crop%20texture%20image%20scaled.js
 
-
-        this.life = scene.add.sprite(scene.game.renderer.width / 2, scene.game.renderer.height / 15, 'life');
-        this.lifeInitialOffset = scene.game.renderer.width / 2 + this.life.getBounds().width / 4;
-        this.life.setX(this.lifeInitialOffset - (1 - this.currentScore) * this.life.getBounds().width / 2);
+        this.life = scene.add.sprite(scene.game.renderer.width / 2 - 6, scene.game.renderer.height / 15, 'life');
         this.lifeDimension = this.life.getBounds();
-        this.life.setCrop(5, 0, this.lifeDimension.width * 0.495 - 5, this.lifeDimension.height);
+        this.life.setCrop(12, 0, this.lifeDimension.width, this.lifeDimension.height);
+        this.lifeXPosition = this.life.getCenter().x;
 
         this.life.anims.load('life');
         this.life.anims.play('life');
@@ -36,14 +34,13 @@ export class LifeBar implements GameObject {
     }
 
 
-
     update(delta: number): void {
         if (Math.abs(this.targetScore - this.currentScore) >= LifeBar.TOLERANCE) {
             const pace = (this.targetScore - this.currentScore) * LifeBar.EASE_PACE;
             this.currentScore += pace;
-            let offset = (1 - this.currentScore) * this.life.getBounds().width / 2;
-            this.life.setX(this.lifeInitialOffset - offset);
-            this.life.setCrop(offset + 5, 0, this.lifeDimension.width * 0.495 - 5, this.lifeDimension.height);
+            const crop = (1 - this.currentScore) * this.lifeDimension.width;
+            this.life.setX(this.lifeXPosition - crop + 12);
+            this.life.setCrop(crop, 0, this.lifeDimension.width, this.lifeDimension.height);
         } else {
             this.currentScore = this.targetScore
         }
