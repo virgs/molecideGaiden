@@ -31,7 +31,6 @@ export class LifeBar implements GameObject {
 
         this.life.setScale(this.scaleRatio, this.scaleRatio);
         this.lifeDimension = this.life.getBounds();
-        this.life.setCrop(LifeBar.IMAGE_OFFSET_ADJUST, 0, this.lifeDimension.width, this.lifeDimension.height);
         this.lifeXPosition = this.life.getCenter().x;
 
         this.life.anims.load('life');
@@ -44,7 +43,7 @@ export class LifeBar implements GameObject {
         const pace = (this.targetScore - this.currentScore) * LifeBar.EASE_PACE;
         this.currentScore += pace;
         const crop = (1 - this.currentScore) * this.lifeDimension.width;
-        this.life.setX(this.lifeXPosition - crop);
+        this.life.setX(this.lifeXPosition - crop - LifeBar.IMAGE_OFFSET_ADJUST / 4);
         this.life.setCrop(LifeBar.IMAGE_OFFSET_ADJUST + crop / this.scaleRatio, 0, this.lifeDimension.width, this.lifeDimension.height);
         if (this.currentScore <= LifeBar.TOLERANCE) {
             EventManager.emit(Events.LIFE_BAR_EMPTY);
