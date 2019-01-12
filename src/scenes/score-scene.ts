@@ -21,14 +21,18 @@ export class ScoreScene extends Phaser.Scene {
     }
 
     private addScoreBoard() {
-        const scoreTitle = this.add.bitmapText(this.game.renderer.width * 0.05, this.game.renderer.height * 0.5,
+        const scoreTitle = this.add.bitmapText(this.game.renderer.width * 0.05, this.game.renderer.height * 0.35,
             'scoreFont', `SCORE:\r\n\r\nMAX:`, 60, 0);
         scoreTitle.setTintFill(0xb6b600);
+        const titleScaleRatio = Math.min(window.innerWidth * 0.35 / scoreTitle.getTextBounds().global.width, 1);
+        console.log(titleScaleRatio);
+        scoreTitle.setScale(titleScaleRatio, titleScaleRatio);
 
-        const scoreText = this.add.bitmapText(this.game.renderer.width * 0.95, this.game.renderer.height * 0.5,
+        const scoreText = this.add.bitmapText(this.game.renderer.width * 0.95, this.game.renderer.height * 0.35,
             'scoreFont', `${this.lastScore}\r\n\r\n${this.maxScore}`, 60, 2);
         scoreText.setOrigin(1, 0);
         scoreText.setTintFill(0xb6b600);
+        scoreText.setScale(titleScaleRatio, titleScaleRatio);
     }
 
     private addTitle() {

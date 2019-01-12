@@ -18,7 +18,10 @@ export class SplashScene extends Phaser.Scene {
     }
 
     public create(): void {
-        this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "splash");
+        const logo = this.add.sprite(this.game.renderer.width / 2, this.game.renderer.height / 2, "splash");
+        let scaleRatio = Math.min(window.innerWidth / logo.getBounds().width, window.innerHeight / logo.getBounds().height);
+        logo.setScale(scaleRatio, scaleRatio);
+
         this.loadImages();
         this.loadFonts();
         this.loadSounds();
