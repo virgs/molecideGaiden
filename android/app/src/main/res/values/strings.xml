@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Molecide</string>
+    <string name="title_activity_main">Molecide</string>
+    <string name="package_name">com.virgs.molecidegaiden</string>
+    <string name="fileprovider_authority">com.virgs.molecidegaiden.fileprovider</string>
+    <string name="custom_url_scheme">com.virgs.molecidegaiden</string>
+</resources>
