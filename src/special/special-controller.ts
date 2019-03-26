@@ -41,14 +41,14 @@ export class SpecialController {
                 this.specials.push(new ScoreFullSpecial());
                 break;
             case 2:
-                this.specials.push(new HelicopterKillerSpecial(this.scene, this.garden));
+                this.specials.push(new RabbitCreatorSpecial());
                 break;
             case 3:
-                this.specials.push(new IncreaseCreationTimeSpecial());
+                this.specials.push(new HelicopterKillerSpecial(this.scene, this.garden));
                 break;
             case 4:
             default:
-                this.specials.push(new RabbitCreatorSpecial());
+                this.specials.push(new IncreaseCreationTimeSpecial());
                 break;
         }
     }

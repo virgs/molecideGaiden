@@ -1,6 +1,6 @@
 {
-  "appId": "com.virgs.molecidegaiden",
-  "appName": "Molecide Gaiden",
+  "appId": "com.downstairs.molecide",
+  "appName": "Molecide",
   "bundledWebRuntime": false,
   "webDir": "www"
 }

@@ -5,7 +5,7 @@ import {SplashScene} from "./scenes/splash-scene";
 import {MainScene} from "./scenes/main-scene";
 import {ScoreScene} from "./scenes/score-scene";
 
-import { Plugins } from '@capacitor/core';
+import {Plugins} from '@capacitor/core';
 
 //https://www.joshmorony.com/how-to-scale-a-game-for-all-device-sizes-in-phaser/
 const config: GameConfig = {
@@ -16,7 +16,7 @@ const config: GameConfig = {
     scene: [SplashScene, ScoreScene, MainScene],
 };
 
-const { StatusBar, SplashScreen } = Plugins;
+const {StatusBar, SplashScreen} = Plugins;
 
 export class Game extends Phaser.Game {
     constructor(config: GameConfig) {
@@ -36,8 +36,7 @@ const resize = () => {
     if (windowRatio < gameRatio) {
         canvas.style.width = windowWidth + "px";
         canvas.style.height = (windowWidth / gameRatio) + "px";
-    }
-    else {
+    } else {
         canvas.style.width = (windowHeight * gameRatio) + "px";
         canvas.style.height = windowHeight + "px";
     }
