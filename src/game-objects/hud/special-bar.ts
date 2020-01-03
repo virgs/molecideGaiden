@@ -11,7 +11,8 @@ export class SpecialBar implements GameObject {
 
     create(scene: Phaser.Scene): void {
         this.sprite = scene.add.sprite(10, 10, "stars").setInteractive();
-        const scaleRatio = Math.min(window.innerWidth * 0.15 / this.sprite.getBounds().width, window.innerHeight * 0.45 / this.sprite.getBounds().height);
+        const scaleRatio = Math.min(scene.game.renderer.width * 0.125 / this.sprite.getBounds().width,
+            scene.game.renderer.height * 0.425 / this.sprite.getBounds().height);
         this.sprite.setScale(scaleRatio, scaleRatio);
         this.sprite.setPosition(this.sprite.getCenter().x + window.innerWidth * 0.05, this.sprite.getCenter().y + window.innerHeight * 0.2);
 

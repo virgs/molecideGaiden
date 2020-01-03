@@ -22,9 +22,10 @@ export class Garden implements GameObject {
 
     create(scene: Phaser.Scene): void {
         this.garden = scene.add.sprite(scene.game.renderer.width / 2, scene.game.renderer.height, "garden");
-        this.scaleRatio = Math.min(window.innerWidth * 0.8 / this.garden.getBounds().width, window.innerHeight * 0.7 / this.garden.getBounds().height);
+        this.scaleRatio = Math.min(scene.game.renderer.width * 0.8 / this.garden.getBounds().width,
+            scene.game.renderer.height * 0.7 / this.garden.getBounds().height);
         this.garden.setScale(this.scaleRatio, this.scaleRatio);
-        this.garden.setY(scene.game.renderer.height - this.garden.getBounds().y * 0.5 + scene.game.renderer.height * 0.02 * this.scaleRatio).setInteractive();
+        this.garden.setY(scene.game.renderer.height - this.garden.getBounds().y * 0.5 + scene.game.renderer.height * 0.0 * this.scaleRatio).setInteractive();
 
 
         this.garden.on('pointerdown', (event) => this.holes.forEach(hole => hole.checkEmptyHit(event.position)));

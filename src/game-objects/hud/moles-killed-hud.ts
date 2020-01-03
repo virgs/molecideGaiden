@@ -6,17 +6,17 @@ export class MolesKilledHud implements GameObject {
     private text: Phaser.GameObjects.BitmapText;
 
     public constructor() {
-        this.totalScore = 0;
+        this.totalScore = 200;
     }
 
     create(scene: Phaser.Scene): void {
         this.totalScore = 0;
         EventManager.on(Events.LIFE_BAR_EMPTY, () => EventManager.emit(Events.GAME_OVER, this.totalScore));
         EventManager.on(Events.MOLE_HIT, () => ++this.totalScore);
-        this.text = scene.add.bitmapText(scene.game.renderer.width * 0.92, scene.game.renderer.height * 0.1, 'scoreFont', this.totalScore.toString(), 60);
-        const scaleRatio = window.innerWidth * 0.03 / this.text.getTextBounds().global.width;
+        this.text = scene.add.bitmapText(scene.game.renderer.width * 0.925, scene.game.renderer.height * 0.125, 'scoreFont', this.totalScore.toString(), 70);
+        const scaleRatio = scene.game.renderer.width * 0.04 / this.text.getTextBounds().global.width;
         this.text.setOrigin(1, 0.5);
-        this.text.setScale(scaleRatio, scaleRatio);
+        this.text.setScale(scaleRatio);
     }
 
     update(delta: number): void {
