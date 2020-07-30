@@ -32,6 +32,12 @@ export class ScoreScene extends Phaser.Scene {
         scoreText.setOrigin(1, 0);
         scoreText.setTintFill(0xb6b600);
         scoreText.setScale(titleScaleRatio, titleScaleRatio);
+
+        const element = document.createElement('a');
+        element.setAttribute('href', 'pagehub.me/virgs');
+        element.text = 'page';
+        document.body.appendChild(element);
+
     }
 
     private addTitle() {
