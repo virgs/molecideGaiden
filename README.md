@@ -1,7 +1,7 @@
 # molecideGaiden
 
 https://youtu.be/3vb752HEPUg
-https://github.com/lopidio/digHoleBattleGarden remastered for mobile/web
+https://github.com/virgs/digHoleBattleGarden remastered for mobile/web
 
     npm run dev
     npm run build
