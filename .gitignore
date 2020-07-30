@@ -1,6 +1,5 @@
 .idea/*
 android/.idea/*
-build/*
 node_modules/*
 www/*
 .gradle/*
