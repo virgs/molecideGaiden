@@ -1,7 +1,8 @@
 # molecideGaiden
 
-https://youtu.be/3vb752HEPUg
-https://github.com/virgs/digHoleBattleGarden remastered for mobile/web
+[Check it here](https://virgs.github.io/molecideGaiden)
+
+[This repo](https://github.com/virgs/digHoleBattleGarden) remastered for mobile/web. Check the previous [one video](https://youtu.be/3vb752HEPUg)
 
     npm run dev
     npm run build
