@@ -56,6 +56,7 @@ export class CharacterPrototype implements Character {
         this.hole = hole;
         const holeCenter = hole.getCenter();
         this.sprite = this.scene.add.sprite(holeCenter.x, holeCenter.y, this.map.key).setInteractive();
+
         const scaleRatio = hole.getScaleRatio();
         this.sprite.setScale(scaleRatio, scaleRatio);
 

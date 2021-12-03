@@ -44,11 +44,12 @@ export class SplashScene extends Phaser.Scene {
     private loadImages() {
         const imagesToLoad = [
             "background-castle",
-            "garden",
             "life-tube",
         ];
 
         imagesToLoad.forEach(image => this.load.image(image, `./assets/images/${image}.png`));
+
+        this.load.image('garden', [`./assets/images/garden.png`, `./assets/images/garden-normal.png`])
     }
 
     private loadSounds() {

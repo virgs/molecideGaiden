@@ -46,6 +46,8 @@ export class MainScene extends Phaser.Scene {
             this.scene.start("ScoreScene", {totalTime})
         });
 
+        this.lights.addLight(window.innerWidth/2, window.innerHeight * 0.05, window.innerWidth/2, 0xCCCCCC, 5);
+        this.lights.enable().setAmbientColor(0x555555);
 
         this.input.addPointer(3);
         // http://labs.phaser.io/edit.html?src=src\input\multitouch\two%20touch%20inputs.js

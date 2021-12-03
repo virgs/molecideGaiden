@@ -22,6 +22,8 @@ export class Garden implements GameObject {
 
     create(scene: Phaser.Scene): void {
         this.garden = scene.add.sprite(scene.game.renderer.width / 2, scene.game.renderer.height, "garden");
+        this.garden.setPipeline('Light2D');
+
         this.scaleRatio = Math.min(scene.game.renderer.width * 0.8 / this.garden.getBounds().width,
             scene.game.renderer.height * 0.7 / this.garden.getBounds().height);
         this.garden.setScale(this.scaleRatio, this.scaleRatio);
