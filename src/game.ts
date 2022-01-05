@@ -4,14 +4,18 @@ import "phaser";
 import {SplashScene} from "./scenes/splash-scene";
 import {MainScene} from "./scenes/main-scene";
 import {ScoreScene} from "./scenes/score-scene";
+import { Types } from 'phaser';
 
 import {Plugins} from '@capacitor/core';
 
 //https://www.joshmorony.com/how-to-scale-a-game-for-all-device-sizes-in-phaser/
-const config: GameConfig = {
+const config: Types.Core.GameConfig = {
     width: window.innerWidth,
     height: window.innerHeight,
     type: Phaser.AUTO,
+    audio: {
+        disableWebAudio: true
+    },
     parent: "game",
     scene: [SplashScene, ScoreScene, MainScene],
 };

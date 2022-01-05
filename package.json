@@ -32,10 +32,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lopidio/molecideGaiden.git"
+    "url": "git+https://github.com/virgs/molecideGaiden.git"
   },
   "author": {
-    "name": "lopidio",
+    "name": "virgs",
     "email": "guilherme.moraes@outlook.com"
   },
   "bugs": {
